@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "prisma:push": "prisma db push"
+    "prisma:push": "npx prisma db push"
   },
   "dependencies": {
     "@prisma/client": "^6.2.1",
