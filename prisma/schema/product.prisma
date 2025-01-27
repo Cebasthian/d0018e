@@ -1,3 +1,4 @@
 model Product {
     id Int @id
+    baskets Basket[]
 }
