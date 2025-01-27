@@ -1,4 +1,15 @@
 model Customer {
-  id       Int    @id @default(autoincrement())
-  username String
+  ssn             String  @id // primary key
+  name            String
+  email           String
+  address         String
+  phone_nr        String
+  bonus_points    String
+  shopping_basket Basket? // note: this field does not exist in the database
+}
+
+model Basket {
+  customer_ssn String   @id // primary & foreign key
+  customer     Customer @relation(fields: [customer_ssn], references: [ssn]) // note: this field does not exist in the database.
+  products Product[]
 }
