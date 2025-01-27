@@ -11,6 +11,6 @@ model Customer {
 
 model Basket {
   customer_ssn String    @id // primary & foreign key
-  customer     Customer  @relation(fields: [customer_ssn], references: [ssn]) // note: this field does not exist in the database.
+  customer     Customer  @relation(fields: [customer_ssn], references: [ssn], onDelete: Cascade) // note: this field does not exist in the database.
   products     Product[]
 }

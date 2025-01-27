@@ -1,0 +1,23 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+
+    label {
+        margin: 5px;
+        display: flex;
+        
+        span {
+            margin: 0 5px;
+        }
+    }
+}
+
+.success {
+    color: rgb(46, 216, 40);
+}
