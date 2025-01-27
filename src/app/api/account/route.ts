@@ -36,6 +36,12 @@ export async function POST(req: NextRequest) {
         data,
     });
 
+    await prisma.basket.create({
+        data: {
+            customer_ssn: ssn,
+        }
+    })
+
     return NextResponse.json(customer)
 }
 
