@@ -1,0 +1,6 @@
+model Administrator {
+    ssn           String @id // primary key
+    username      String
+    email         String
+    password_hash String
+}
