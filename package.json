@@ -8,20 +8,25 @@
     "start": "next start",
     "lint": "next lint",
     "prisma:push": "npx prisma db push",
-    "prisma:gen": "npx prisma generate"
+    "prisma:gen": "npx prisma generate",
+    "swagger": "npx next-openapi-gen generate"
   },
   "dependencies": {
     "@prisma/client": "^6.2.1",
+    "@types/swagger-ui-react": "^4.19.0",
     "next": "15.1.5",
+    "next-openapi-gen": "^0.1.2",
     "prisma": "^6.2.1",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "swagger-ui-react": "^5.18.3"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/swagger-jsdoc": "^6.0.4",
     "eslint": "^9",
     "eslint-config-next": "15.1.5",
     "typescript": "^5"

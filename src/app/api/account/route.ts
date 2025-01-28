@@ -4,15 +4,61 @@ import { prisma } from "@/lib/prisma";
 import { Customer } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 
+/**
+ * @openapi
+ * 
+ * /api/account:
+ */
+
 
 /**
- * [C]reate customer endpoint
- * @param req 
- * @returns 
+ * @openapi
+ * 
+ * /api/account:
+ *  post:
+ *      tags:
+ *          - account
+ *      summary: Create account
+ *      description: Creates a new account
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  example:
+ *                      ssn: 0123456789ab
+ *                      name: John Doe
+ *                      email: john.doe@example.com
+ *                      address: Fiction Street
+ *                      phone_nr: 050 555 50 50
+ *                      password: secure-password
+ *      responses:
+ *          200:
+ *              description: Returns the account created
+ */
+
+
+type CreateAccountBody = {
+    ssn: string,
+    name: string,
+    email: string,
+    address: string,
+    phone_nr: string,
+    password: string,
+}
+
+type CreateAccountResponse = {
+    ssn: string
+}
+
+/**
+ * Create account
+ * @desc: Creates a new customer account
+ * @body: CreateAccountBody
+ * @response: CreateAccountResponse
  */
 export async function POST(req: NextRequest) {
 
-    const body = await req.json();
+    const body: CreateAccountBody = await req.json();
     const {
         ssn,
         name,
@@ -34,6 +80,9 @@ export async function POST(req: NextRequest) {
 
     const customer = await prisma.customer.create({
         data,
+        select: {
+            ssn: true,
+        }
     });
 
     await prisma.basket.create({
@@ -46,9 +95,22 @@ export async function POST(req: NextRequest) {
 }
 
 /**
- * [R]etrieve customer http://localhost:3000/api/account?ssn=AABBCC
- * @param req 
- * @returns 
+ * TODO: Maybe change so that we check session management. E.g. you can only access your own account. (or maybe admin can access, we'll see)
+ * 
+ * @openapi
+ * 
+ * /api/account:
+ *  get:
+ *      security:
+ *          - cookieAuth: []
+ *      summary: Get account
+ *      description: Creates a new account 
+ *      responses:
+ *          200:
+ *              description: Returns the account created
+ *              content: 
+ *          401:
+ *              $ref: "#/components/responses/Unauthorized"
  */
 export async function GET(req: NextRequest) {
     const searchParams = req.nextUrl.searchParams;
@@ -69,10 +131,12 @@ export async function GET(req: NextRequest) {
 }
 
 /**
- * [U]pdate customer
- * TODO: Fixa med session management så bara ägaren kan ändra ett konto.
- * @param req 
- * @returns 
+ * TODO: Session management so only the owner can edit their account.
+ * @openapi 
+ *
+ * /api/account:
+ *  put:
+ *      summary: Update account
  */
 export async function PUT(req: NextRequest) {
     const body = await req.json();
@@ -103,11 +167,14 @@ export async function PUT(req: NextRequest) {
     return NextResponse.json({success: true})
 }
 
+
 /**
- * [D]elete customer http://localhost:3000/api/account?ssn=AABBCC
- * TODO: Fixa med session management så bara ägaren kan ta bort ett konto.
- * @param req 
- * @returns 
+ * TODO: Session management.
+ * @openapi 
+ *
+ * /api/account:
+ *  delete:
+ *      summary: Update account
  */
 export async function DELETE(req: NextRequest) {
     const searchParams = req.nextUrl.searchParams;
