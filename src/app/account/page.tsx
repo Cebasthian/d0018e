@@ -1,4 +1,4 @@
-import { prisma } from "@/lib/prisma"
+import { prisma } from "@/lib/server/prisma"
 import type { SearchParams } from "next/dist/server/request/search-params"
 import styles from "./account.module.css"
 import EditAccount from "./EditAccount"

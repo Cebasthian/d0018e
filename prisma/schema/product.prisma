@@ -1,4 +1,41 @@
+/**
+ * T-Shirt
+ */
+
 model Product {
-    id Int @id
-    baskets Basket[]
+    product_id  String   @id @default(uuid())
+    name        String
+    price       Int
+    description String
+    //
+    stock       Stock?
+    images      ImageManager?
+    reviews     Review[]
+    baskets     Basket[]
+}
+
+model Stock {
+    product_id String  @id
+    XS         Int
+    S          Int
+    M          Int
+    L          Int
+    XL         Int
+    //
+    product    Product @relation(fields: [product_id], references: [product_id], onDelete: Cascade, onUpdate: Cascade)
+}
+
+model ImageManager {
+    product_id      String  @id
+    front_image_url String
+    //
+    product         Product @relation(fields: [product_id], references: [product_id], onDelete: Cascade, onUpdate: Cascade)
+    images          Image[]
+}
+
+model Image {
+    url        String @id
+    product_id String
+    //
+    images     ImageManager @relation(fields: [product_id], references: [product_id])
 }

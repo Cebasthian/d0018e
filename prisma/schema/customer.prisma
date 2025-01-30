@@ -6,11 +6,21 @@ model Customer {
   address         String
   phone_nr        String
   bonus_points    Int     @default(0)
+  //
   shopping_basket Basket? // note: this field does not exist in the database
 }
 
 model Basket {
   customer_ssn String    @id // primary & foreign key
-  customer     Customer  @relation(fields: [customer_ssn], references: [ssn], onDelete: Cascade) // note: this field does not exist in the database.
+  //
+  customer     Customer  @relation(fields: [customer_ssn], references: [ssn], onDelete: Cascade, onUpdate: Cascade) // note: this field does not exist in the database.
   products     Product[]
+}
+
+model Review {
+  review_id    String  @id @default(uuid())
+  customer_ssn String
+  product_id   String
+  //
+  product      Product @relation(fields: [product_id], references: [product_id])
 }

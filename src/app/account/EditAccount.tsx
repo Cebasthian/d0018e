@@ -1,5 +1,5 @@
 "use client"
-import { http } from "@/lib/httpRequester";
+import { http } from "@/lib/client/httpRequester";
 import type { Customer } from "@prisma/client";
 import { useCallback, useState } from "react";
 import styles from "./account.module.css";

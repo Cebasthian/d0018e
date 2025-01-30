@@ -1,41 +1,8 @@
-import { hashPassword } from "@/lib/hash";
-import { BadRequest } from "@/lib/httpErrorCodes";
-import { prisma } from "@/lib/prisma";
+import { BadRequest } from "@/lib/server/errorCodes";
+import { hashPassword } from "@/lib/server/hash";
+import { CreateAccount, DeleteAccount, FindAccount, UpdateAccount } from "@/service/account";
 import { Customer } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
-
-/**
- * @openapi
- * 
- * /api/account:
- */
-
-
-/**
- * @openapi
- * 
- * /api/account:
- *  post:
- *      tags:
- *          - account
- *      summary: Create account
- *      description: Creates a new account
- *      requestBody:
- *          required: true
- *          content:
- *              application/json:
- *                  example:
- *                      ssn: 0123456789ab
- *                      name: John Doe
- *                      email: john.doe@example.com
- *                      address: Fiction Street
- *                      phone_nr: 050 555 50 50
- *                      password: secure-password
- *      responses:
- *          200:
- *              description: Returns the account created
- */
-
 
 type CreateAccountBody = {
     ssn: string,
@@ -46,15 +13,10 @@ type CreateAccountBody = {
     password: string,
 }
 
-type CreateAccountResponse = {
-    ssn: string
-}
-
 /**
  * Create account
- * @desc: Creates a new customer account
+ * @desc: Creates a new customer account. Returns the newly created account
  * @body: CreateAccountBody
- * @response: CreateAccountResponse
  */
 export async function POST(req: NextRequest) {
 
@@ -78,39 +40,14 @@ export async function POST(req: NextRequest) {
         bonus_points: 0,
     }
 
-    const customer = await prisma.customer.create({
-        data,
-        select: {
-            ssn: true,
-        }
-    });
-
-    await prisma.basket.create({
-        data: {
-            customer_ssn: ssn,
-        }
-    })
+    const customer = await CreateAccount(data);
 
     return NextResponse.json(customer)
 }
 
 /**
- * TODO: Maybe change so that we check session management. E.g. you can only access your own account. (or maybe admin can access, we'll see)
- * 
- * @openapi
- * 
- * /api/account:
- *  get:
- *      security:
- *          - cookieAuth: []
- *      summary: Get account
- *      description: Creates a new account 
- *      responses:
- *          200:
- *              description: Returns the account created
- *              content: 
- *          401:
- *              $ref: "#/components/responses/Unauthorized"
+ * Get account
+ * @desc: TODO: Add session management
  */
 export async function GET(req: NextRequest) {
     const searchParams = req.nextUrl.searchParams;
@@ -119,11 +56,7 @@ export async function GET(req: NextRequest) {
 
     if(!ssn) return BadRequest();
 
-    const customer = await prisma.customer.findUnique({
-        where: {
-            ssn: ssn,
-        }
-    })
+    const customer = await FindAccount(ssn)
 
     if(!customer) return BadRequest();
 
@@ -131,12 +64,8 @@ export async function GET(req: NextRequest) {
 }
 
 /**
- * TODO: Session management so only the owner can edit their account.
- * @openapi 
- *
- * /api/account:
- *  put:
- *      summary: Update account
+ * Update account
+ * @desc: TODO: Add session management
  */
 export async function PUT(req: NextRequest) {
     const body = await req.json();
@@ -148,49 +77,37 @@ export async function PUT(req: NextRequest) {
         phone_nr,
     } = body;
 
+    if(!ssn) return BadRequest("Invalid ssn field in body")
+
     try {   
-        await prisma.customer.update({
-            data: {
-                name,
-                email,
-                address,
-                phone_nr
-            },
-            where: {
-                ssn
-            }
+        await UpdateAccount(ssn, {
+            name,
+            email,
+            address,
+            phone_nr
         })
-    } catch {
-        return BadRequest();
+    } catch(error: unknown) {
+        return BadRequest(error);
     }
         
     return NextResponse.json({success: true})
 }
 
-
 /**
- * TODO: Session management.
- * @openapi 
- *
- * /api/account:
- *  delete:
- *      summary: Update account
+ * Delete account
+ * @desc: TODO: Add session management
  */
 export async function DELETE(req: NextRequest) {
     const searchParams = req.nextUrl.searchParams;
 
     const ssn = searchParams.get("ssn");
 
-    if(!ssn) return BadRequest();
+    if(!ssn) return BadRequest("Invalid ssn parameter");
 
     try {
-        await prisma.customer.delete({
-            where: {
-                ssn: ssn
-            }
-        })
-    } catch {
-        return BadRequest();
+        await DeleteAccount(ssn)
+    } catch(error: unknown) {
+        return BadRequest(error);
     }
         
     return NextResponse.json({success: true})

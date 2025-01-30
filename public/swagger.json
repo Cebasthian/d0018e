@@ -25,7 +25,7 @@
       "post": {
         "operationId": "post-account",
         "summary": "Create account\r",
-        "description": "Creates a new customer account",
+        "description": "Creates a new customer account. Returns the newly created account",
         "tags": [
           "Account"
         ],
@@ -70,14 +70,7 @@
             "description": "Successful response",
             "content": {
               "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "ssn": {
-                      "type": "string"
-                    }
-                  }
-                }
+                "schema": {}
               }
             }
           }
@@ -85,8 +78,8 @@
       },
       "get": {
         "operationId": "get-account",
-        "summary": " @openapi\r",
-        "description": "",
+        "summary": "Get account\r",
+        "description": "TODO: Add session management",
         "tags": [
           "Account"
         ],
@@ -104,8 +97,8 @@
       },
       "put": {
         "operationId": "put-account",
-        "summary": " @openapi \r",
-        "description": "",
+        "summary": "Update account\r",
+        "description": "TODO: Add session management",
         "tags": [
           "Account"
         ],
@@ -130,8 +123,8 @@
       },
       "delete": {
         "operationId": "delete-account",
-        "summary": " @openapi \r",
-        "description": "",
+        "summary": "Delete account\r",
+        "description": "TODO: Add session management",
         "tags": [
           "Account"
         ],

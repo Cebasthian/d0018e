@@ -1,6 +1,6 @@
 "use client"
 
-import { http } from "@/lib/httpRequester";
+import { http } from "@/lib/client/httpRequester";
 import { FormEvent, useState } from "react";
 import styles from "./account-create.module.css";
 
