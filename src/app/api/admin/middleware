@@ -1,0 +1,4 @@
+// TODO: Check if client is authenticated as an admin
+// or else, dont allow any endpoint.
+
+// we will need to export method and matcher so we can import in root middleware file.

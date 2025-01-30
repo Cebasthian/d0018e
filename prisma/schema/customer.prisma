@@ -1,13 +1,14 @@
 model Customer {
-  ssn             String  @id // primary key
+  ssn             String   @id // primary key
   password        String
   name            String
   email           String
   address         String
   phone_nr        String
-  bonus_points    Int     @default(0)
+  bonus_points    Int      @default(0)
   //
   shopping_basket Basket? // note: this field does not exist in the database
+  reviews         Review[]
 }
 
 model Basket {
@@ -18,9 +19,10 @@ model Basket {
 }
 
 model Review {
-  review_id    String  @id @default(uuid())
+  review_id    String   @id @default(uuid())
   customer_ssn String
   product_id   String
   //
-  product      Product @relation(fields: [product_id], references: [product_id])
+  customer     Customer @relation(fields: [customer_ssn], references: [ssn])
+  product      Product  @relation(fields: [product_id], references: [product_id])
 }

@@ -3,20 +3,15 @@ import { DeepPartial } from "@/types";
 import { Customer } from "@prisma/client";
 
 export async function CreateAccount(data: Customer) {
-    const customer = await prisma.customer.create({
-        data,
-        select: {
-            ssn: true,
+    return await prisma.customer.create({
+        data: {
+            ...data,
+            shopping_basket: {}
+        },
+        include: {
+            shopping_basket: true
         }
     });
-
-    await prisma.basket.create({
-        data: {
-            customer_ssn: data.ssn,
-        }
-    })
-
-    return customer;
 } 
 
 export async function FindAccount(ssn: string) {

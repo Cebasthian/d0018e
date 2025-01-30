@@ -7,35 +7,30 @@ model Product {
     name        String
     price       Int
     description String
+    tag         String
     //
     stock       Stock?
-    images      ImageManager?
+    images      Image[]
     reviews     Review[]
     baskets     Basket[]
 }
 
 model Stock {
     product_id String  @id
-    XS         Int
-    S          Int
-    M          Int
-    L          Int
-    XL         Int
+    XS         Int     @default(0)
+    S          Int     @default(0)
+    M          Int     @default(0)
+    L          Int     @default(0)
+    XL         Int     @default(0)
     //
     product    Product @relation(fields: [product_id], references: [product_id], onDelete: Cascade, onUpdate: Cascade)
 }
 
-model ImageManager {
-    product_id      String  @id
-    front_image_url String
-    //
-    product         Product @relation(fields: [product_id], references: [product_id], onDelete: Cascade, onUpdate: Cascade)
-    images          Image[]
-}
-
 model Image {
-    url        String @id
+    id         Int     @id @default(autoincrement())
+    url        String
     product_id String
+    list_index Int     @default(autoincrement())
     //
-    images     ImageManager @relation(fields: [product_id], references: [product_id])
+    product    Product @relation(fields: [product_id], references: [product_id])
 }
