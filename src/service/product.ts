@@ -1,6 +1,6 @@
 import { prisma } from "@/lib/server/prisma";
 import { DeepPartial } from "@/types";
-import { Customer, Product } from "@prisma/client";
+import { Customer, Prisma } from "@prisma/client";
 
 type GetProductsOptions = {
     amount?: number,
@@ -27,7 +27,9 @@ export async function GetProducts(options: GetProductsOptions = {}) {
         },
         take: options.amount,
         skip: options.offset,
-        orderBy: options.orderBy
+        orderBy: options.orderBy || {
+            price: "asc"
+        }
     })
 }
 
@@ -38,17 +40,21 @@ export async function GetProductById(product_id: string) {
         },
         include: {
             stock: true,
-            images: true,
+            images: {
+                orderBy: {
+                    list_index: "asc"
+                }
+            },
             reviews: {
                 include: {
                     customer: true
                 }
             }
-        }
+        },
     })
 }
 
-export async function CreateProduct(data: Product) {
+export async function CreateProduct(data: Prisma.ProductCreateInput) {
     return await prisma.product.create({
         data: {
             ...data,
@@ -68,6 +74,23 @@ export async function AddImageToProduct(product_id: string, image_url: string, i
             url: image_url,
             product_id: product_id,
             list_index: index,
+        }
+    })
+}
+
+export async function UpdateProduct(product_id: string, data: Prisma.ProductUpdateInput) {
+    return await prisma.product.update({
+        where: {
+            product_id
+        },
+        data: data,
+    })
+}
+
+export async function DeleteProductById(product_id: string) {
+    return await prisma.product.delete({
+        where: {
+            product_id
         }
     })
 }

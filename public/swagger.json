@@ -140,6 +140,144 @@
           }
         }
       }
+    },
+    "/admin/product": {
+      "post": {
+        "operationId": "post-admin-product",
+        "summary": "Create a new product",
+        "description": "",
+        "tags": [
+          "Admin"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {}
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "operationId": "put-admin-product",
+        "summary": "Update product information",
+        "description": "",
+        "tags": [
+          "Admin"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {}
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/product/[id]": {
+      "delete": {
+        "operationId": "delete-admin-product-[id]",
+        "summary": "Delete product",
+        "description": "",
+        "tags": [
+          "Admin"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/product": {
+      "get": {
+        "operationId": "get-product",
+        "summary": "Get all products",
+        "description": "",
+        "tags": [
+          "Product"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/product/[id]": {
+      "get": {
+        "operationId": "get-product-[id]",
+        "summary": "Get a product by id",
+        "description": "",
+        "tags": [
+          "Product"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/test": {
+      "get": {
+        "operationId": "get-test",
+        "summary": "",
+        "description": "",
+        "tags": [
+          "Test"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
     }
   }
 }

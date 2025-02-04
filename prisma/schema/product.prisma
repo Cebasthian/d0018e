@@ -6,8 +6,9 @@ model Product {
     product_id  String   @id @default(uuid())
     name        String
     price       Int
-    description String
-    tag         String
+    description String   @default("")
+    tag         String   @default("")
+    available   Boolean  @default(false)
     //
     stock       Stock?
     images      Image[]

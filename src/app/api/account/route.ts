@@ -1,5 +1,5 @@
-import { BadRequest } from "@/lib/server/errorCodes";
 import { hashPassword } from "@/lib/server/hash";
+import { BadRequest, InternalError, SuccessResponse } from "@/lib/server/httpStatus";
 import { CreateAccount, DeleteAccount, FindAccount, UpdateAccount } from "@/service/account";
 import { Customer } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
@@ -87,10 +87,10 @@ export async function PUT(req: NextRequest) {
             phone_nr
         })
     } catch(error: unknown) {
-        return BadRequest(error);
+        return InternalError(error);
     }
         
-    return NextResponse.json({success: true})
+    return SuccessResponse();
 }
 
 /**
@@ -107,8 +107,8 @@ export async function DELETE(req: NextRequest) {
     try {
         await DeleteAccount(ssn)
     } catch(error: unknown) {
-        return BadRequest(error);
+        return InternalError(error);
     }
         
-    return NextResponse.json({success: true})
+    return SuccessResponse();
 }
