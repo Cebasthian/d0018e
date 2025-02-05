@@ -45,6 +45,7 @@ export async function PUT(req: NextRequest) {
         price,
         description,
         tag,
+        stock,
         available
     } = body
 
@@ -58,7 +59,12 @@ export async function PUT(req: NextRequest) {
             price,
             description,
             tag,
-            available
+            available,
+            stock: {
+                update: {
+                    data: stock
+                }
+            }
         })
     } catch(error: unknown) {
         return InternalError(error)

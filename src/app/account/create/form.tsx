@@ -14,8 +14,6 @@ export default function CreateAccountForm() {
         setDisabledSubmit(true)
         e.preventDefault();
 
-        console.log(e)
-        
         const formData = new FormData(e.currentTarget);
 
         const email = formData.get("email")

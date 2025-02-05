@@ -1,0 +1,21 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    margin: 15px;
+    padding: 15px;
+}
+
+.edit {
+    display: flex;
+    flex-direction: column;
+    label {
+        margin: 3px 0;
+        span {
+            margin: 0 5px 0 0;
+        }
+    }
+    button {
+        margin: 5px;
+        width: 100px;
+    }
+}

@@ -27,7 +27,7 @@ async function put(url: string, body: unknown) {
     })
 }
 
-async function del(url: string, body: unknown) {
+async function del(url: string, body?: unknown) {
     return fetch(url, {
         method: "delete",
         headers: {

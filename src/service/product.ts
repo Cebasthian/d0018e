@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/server/prisma";
-import { DeepPartial } from "@/types";
-import { Customer, Prisma } from "@prisma/client";
+import type { DeepPartial } from "@/types";
+import type { Customer, Prisma } from "@prisma/client";
+import { PromiseReturnType } from "@prisma/client/extension";
 
 type GetProductsOptions = {
     amount?: number,
@@ -8,16 +9,22 @@ type GetProductsOptions = {
     tag?: string,
     orderBy?: {
         [field in keyof DeepPartial<Customer>]: "asc" | "desc"
-    }
+    },
+    publicOnly?: boolean
 }
 
 export async function GetProducts(options: GetProductsOptions = {}) {
-    return await prisma.product.findMany({
+    return prisma.product.findMany({
         where: {
-            tag: options.tag
+            tag: options.tag,
+            available: options.publicOnly ? true : undefined
         },
         include: {
-            // stock: true,
+            stock: {
+                omit: {
+                    product_id: true
+                }
+            },
             images: {
                 orderBy: {
                     list_index: "asc"
@@ -33,13 +40,19 @@ export async function GetProducts(options: GetProductsOptions = {}) {
     })
 }
 
+export type FullProduct = Exclude<PromiseReturnType<typeof GetProductById>, null>
+
 export async function GetProductById(product_id: string) {
-    return await prisma.product.findUnique({
+    return prisma.product.findUnique({
         where: {
             product_id
         },
         include: {
-            stock: true,
+            stock: {
+                omit: {
+                    product_id: true
+                }
+            },
             images: {
                 orderBy: {
                     list_index: "asc"
@@ -55,7 +68,7 @@ export async function GetProductById(product_id: string) {
 }
 
 export async function CreateProduct(data: Prisma.ProductCreateInput) {
-    return await prisma.product.create({
+    return prisma.product.create({
         data: {
             ...data,
             stock: {
@@ -69,7 +82,7 @@ export async function CreateProduct(data: Prisma.ProductCreateInput) {
 }
 
 export async function AddImageToProduct(product_id: string, image_url: string, index?: number) {
-    return await prisma.image.create({
+    return prisma.image.create({
         data: {
             url: image_url,
             product_id: product_id,
@@ -79,7 +92,7 @@ export async function AddImageToProduct(product_id: string, image_url: string, i
 }
 
 export async function UpdateProduct(product_id: string, data: Prisma.ProductUpdateInput) {
-    return await prisma.product.update({
+    return prisma.product.update({
         where: {
             product_id
         },
@@ -88,7 +101,7 @@ export async function UpdateProduct(product_id: string, data: Prisma.ProductUpda
 }
 
 export async function DeleteProductById(product_id: string) {
-    return await prisma.product.delete({
+    return prisma.product.delete({
         where: {
             product_id
         }
