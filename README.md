@@ -6,3 +6,5 @@
 4. Run `yarn swagger` to generate OpenAPI specs.
 5. Run `yarn dev`
 6. Visit [http://localhost:3000](http://localhost:3000).
+
+Test admin CRUD endpoints: [http://localhost:3000/create](http://localhost:3000/create)
