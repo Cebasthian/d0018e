@@ -110,19 +110,18 @@ export default function AdminCRUD() {
 };
 
   return (
-    <div className="p-4 max-w-xl mx-auto space-y-8">
-      <h1 className="text-2xl font-bold">Administrator CRUD</h1>
+    <div>
+      <h1>Administrator CRUD</h1>
 
       {/* Create Administrator Section */}
-      <section className="border p-4">
-        <h2 className="text-xl font-bold mb-4">Create Administrator</h2>
-        <form onSubmit={createAdmin} className="space-y-2">
+      <section>
+        <h2>Create Administrator</h2>
+        <form onSubmit={createAdmin}>
           <input
             type="text"
             placeholder="SSN"
             value={createSsn}
             onChange={(e) => setCreateSsn(e.target.value)}
-            className="border p-2 w-full"
             required
           />
           <input
@@ -130,7 +129,6 @@ export default function AdminCRUD() {
             placeholder="Username"
             value={createUsername}
             onChange={(e) => setCreateUsername(e.target.value)}
-            className="border p-2 w-full"
             required
           />
           <input
@@ -138,7 +136,6 @@ export default function AdminCRUD() {
             placeholder="Email"
             value={createEmail}
             onChange={(e) => setCreateEmail(e.target.value)}
-            className="border p-2 w-full"
             required
           />
           <input
@@ -146,34 +143,32 @@ export default function AdminCRUD() {
             placeholder="Password"
             value={createPassword}
             onChange={(e) => setCreatePassword(e.target.value)}
-            className="border p-2 w-full"
             required
           />
-          <button type="submit" className="bg-blue-500 text-white p-2">
+          <button type="submit">
             Create
           </button>
         </form>
       </section>
 
       {/* Get Administrator Section */}
-      <section className="border p-4">
-        <h2 className="text-xl font-bold mb-4">Get Administrator</h2>
-        <form onSubmit={getAdmin} className="space-y-2">
+      <section>
+        <h2>Get Administrator</h2>
+        <form onSubmit={getAdmin}>
           <input
             type="text"
             placeholder="SSN"
             value={getSsn}
             onChange={(e) => setGetSsn(e.target.value)}
-            className="border p-2 w-full"
             required
           />
-          <button type="submit" className="bg-green-500 text-white p-2">
+          <button type="submit">
             Get
           </button>
         </form>
         {adminData && (
-          <div className="mt-4 p-2 border">
-            <h3 className="font-bold">Admin Details</h3>
+          <div>
+            <h3>Admin Details</h3>
             <p>SSN: {adminData.ssn}</p>
             <p>Username: {adminData.username}</p>
             <p>Email: {adminData.email}</p>
@@ -182,37 +177,35 @@ export default function AdminCRUD() {
       </section>
 
       {/* Delete Administrator Section */}
-      <section className="border p-4">
-        <h2 className="text-xl font-bold mb-4">Delete Administrator</h2>
-        <form onSubmit={deleteAdmin} className="space-y-2">
+      <section>
+        <h2>Delete Administrator</h2>
+        <form onSubmit={deleteAdmin}>
           <input
             type="text"
             placeholder="SSN"
             value={deleteSsn}
             onChange={(e) => setDeleteSsn(e.target.value)}
-            className="border p-2 w-full"
             required
           />
-          <button type="submit" className="bg-red-500 text-white p-2">
+          <button type="submit">
             Delete
           </button>
         </form>
       </section>
 
       {/* Update Administrator Section */}
-      <section className="border p-4">
-        <h2 className="text-xl font-bold mb-4">Update Administrator</h2>
-        <p className="mb-2 text-sm text-gray-500">
+      <section>
+        <h2>Update Administrator</h2>
+        <p>
           Note: Use the GET section to load an administrator, then update the
           fields below.
         </p>
-        <form onSubmit={updateAdmin} className="space-y-2">
+        <form onSubmit={updateAdmin}>
           <input
             type="text"
             placeholder="Username"
             value={updateUsername}
             onChange={(e) => setUpdateUsername(e.target.value)}
-            className="border p-2 w-full"
             required
           />
           <input
@@ -220,7 +213,6 @@ export default function AdminCRUD() {
             placeholder="Email"
             value={updateEmail}
             onChange={(e) => setUpdateEmail(e.target.value)}
-            className="border p-2 w-full"
             required
           />
           <input
@@ -228,10 +220,9 @@ export default function AdminCRUD() {
             placeholder="Password"
             value={updatePassword}
             onChange={(e) => setUpdatePassword(e.target.value)}
-            className="border p-2 w-full"
             required
           />
-          <button type="submit" className="bg-yellow-500 text-white p-2">
+          <button type="submit">
             Update
           </button>
         </form>
