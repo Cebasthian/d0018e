@@ -3,7 +3,7 @@
  */
 
 model Product {
-    product_id  String   @id @default(uuid())
+    product_id  String   @id @default(nanoid(12))
     name        String
     price       Int
     description String   @default("")
