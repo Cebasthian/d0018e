@@ -33,5 +33,5 @@ model Image {
     product_id String
     list_index Int     @default(autoincrement())
     //
-    product    Product @relation(fields: [product_id], references: [product_id])
+    product    Product @relation(fields: [product_id], references: [product_id], onDelete: Cascade, onUpdate: Cascade)
 }

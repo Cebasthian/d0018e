@@ -24,7 +24,7 @@ model Review {
     customer_ssn String
     product_id   String
     //
-    customer     Customer @relation(fields: [customer_ssn], references: [ssn])
+    customer     Customer @relation(fields: [customer_ssn], references: [ssn], onDelete: NoAction)
     product      Product  @relation(fields: [product_id], references: [product_id])
 }
 
@@ -33,5 +33,5 @@ model CustomerSession {
     customer_ssn  String
     expiry_date   DateTime
     //
-    customer      Customer @relation(fields: [customer_ssn], references: [ssn])
+    customer      Customer @relation(fields: [customer_ssn], references: [ssn], onDelete: Cascade, onUpdate: Cascade)
 }
