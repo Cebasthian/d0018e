@@ -1,4 +1,4 @@
-import { SearchParamsUtils } from "@/lib/util/routeHelper";
+import { SearchParamsUtils } from "@/lib/server/routeHelper";
 import { GetProducts } from "@/service/product";
 import { NextRequest, NextResponse } from "next/server";
 

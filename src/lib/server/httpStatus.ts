@@ -6,9 +6,17 @@ const Error = (status: number, message: string) => (error?: unknown) => new Next
     status
 }), {status}) 
 
+/**
+ * Error 400 Bad request
+ */
 export const BadRequest = Error(400, "Bad request")
+/**
+ * Error 500 Internal error
+ */
 export const InternalError = Error(500, "Internal error")
 
-export const SuccessResponse = () => NextResponse.json({success: true})
 
-// export const BadRequest = (error: unknown) => new NextResponse(JSON.stringify({message: "Bad request", error: error, status: 400}), {status: 400})
+/**
+ * Status 200 OK
+ */
+export const SuccessResponse = () => NextResponse.json({success: true})

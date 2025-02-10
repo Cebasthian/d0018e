@@ -1,6 +1,6 @@
 import { hashPassword } from "@/lib/server/hash";
 import { BadRequest, InternalError, SuccessResponse } from "@/lib/server/httpStatus";
-import { CreateAccount, DeleteAccount, FindAccount, UpdateAccount } from "@/service/account";
+import { CreateAccount, DeleteAccount, GetAccountBySsn, UpdateAccount } from "@/service/customer_account";
 import { Customer } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -56,7 +56,7 @@ export async function GET(req: NextRequest) {
 
     if(!ssn) return BadRequest();
 
-    const customer = await FindAccount(ssn)
+    const customer = await GetAccountBySsn(ssn)
 
     if(!customer) return BadRequest();
 

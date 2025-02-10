@@ -1,0 +1,3 @@
+/* SESSION MANAGEMENT */
+
+export const SESSION_LIFESPAN = 7;
