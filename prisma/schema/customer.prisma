@@ -1,28 +1,37 @@
 model Customer {
-  ssn             String   @id // primary key
-  password        String
-  name            String
-  email           String
-  address         String
-  phone_nr        String
-  bonus_points    Int      @default(0)
-  //
-  shopping_basket Basket? // note: this field does not exist in the database
-  reviews         Review[]
+    ssn             String            @id // primary key
+    password        String
+    name            String
+    email           String
+    address         String
+    phone_nr        String
+    bonus_points    Int               @default(0)
+    //
+    shopping_basket Basket? // note: this field does not exist in the database
+    reviews         Review[]
+    sessions        CustomerSession[]
 }
 
 model Basket {
-  customer_ssn String    @id // primary & foreign key
-  //
-  customer     Customer  @relation(fields: [customer_ssn], references: [ssn], onDelete: Cascade, onUpdate: Cascade) // note: this field does not exist in the database.
-  products     Product[]
+    customer_ssn String    @id // primary & foreign key
+    //
+    customer     Customer  @relation(fields: [customer_ssn], references: [ssn], onDelete: Cascade, onUpdate: Cascade) // note: this field does not exist in the database.
+    products     Product[]
 }
 
 model Review {
-  review_id    String   @id @default(uuid())
-  customer_ssn String
-  product_id   String
-  //
-  customer     Customer @relation(fields: [customer_ssn], references: [ssn])
-  product      Product  @relation(fields: [product_id], references: [product_id])
+    review_id    String   @id @default(uuid())
+    customer_ssn String
+    product_id   String
+    //
+    customer     Customer @relation(fields: [customer_ssn], references: [ssn])
+    product      Product  @relation(fields: [product_id], references: [product_id])
+}
+
+model CustomerSession {
+    session_token String   @id @default(cuid(2))
+    customer_ssn  String
+    expiry_date   DateTime
+    //
+    customer      Customer @relation(fields: [customer_ssn], references: [ssn])
 }

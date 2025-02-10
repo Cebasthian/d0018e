@@ -1,6 +1,16 @@
 model Administrator {
-    ssn           String @id // primary key
-    username      String
-    email         String
-    password      String
+    ssn      String                  @id // primary key
+    username String
+    email    String
+    password String
+    //
+    sessions AdministratorSesssion[]
+}
+
+model AdministratorSesssion {
+    session_token     String        @id @default(cuid(2))
+    administrator_ssn String
+    expiry_date       DateTime
+    //
+    administrator     Administrator @relation(fields: [administrator_ssn], references: [ssn])
 }
