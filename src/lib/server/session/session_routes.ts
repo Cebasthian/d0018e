@@ -3,7 +3,7 @@ import { GetSessionByToken } from "@/service/customer_session";
 import { Customer } from "@prisma/client";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
-import { BadRequest, InternalError } from "../httpStatus";
+import { BadRequest, Unauthorized } from "../httpStatus";
 
 export const withCustomerSession = (routeHandler: (req: NextRequest, customer: Customer) => NextResponse) => {
     return async (req: NextRequest) => {
@@ -13,13 +13,13 @@ export const withCustomerSession = (routeHandler: (req: NextRequest, customer: C
         const session_token = cookieStore.get("session_token")
         if(!session_token || !session_token.value) {
             // Session token missing or invalid
-            return BadRequest(); // placeholder, redirect to login?
+            return Unauthorized("Session token invalid or missing"); // placeholder, redirect to login?
         }
         
         const session = await GetSessionByToken(session_token.value)
         if(!session) {
             // Session not found or expired
-            return InternalError(); // placeholder, redirect to login?
+            return Unauthorized("Expired session"); // placeholder, redirect to login?
         }        
 
         /*
@@ -34,7 +34,7 @@ export const withCustomerSession = (routeHandler: (req: NextRequest, customer: C
         */
         if(HasExpired(session.expiry_date)) {
             // Expired session, login again
-            return BadRequest(); // placeholder, redirect?
+            return BadRequest("Expired session"); // placeholder, redirect?
         }
 
         return routeHandler(req, session.customer)

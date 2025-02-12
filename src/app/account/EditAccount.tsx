@@ -1,6 +1,7 @@
 "use client"
 import { http } from "@/lib/client/httpRequester";
 import type { Customer } from "@prisma/client";
+import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
 import styles from "./account.module.css";
 
@@ -9,6 +10,8 @@ export default function EditAccount({customer}: {customer: Customer}) {
     const [name, setName] = useState(customer.name)
     const [address, setAddress] = useState(customer.address)
     const [phone_nr, setPhoneNr] = useState(customer.phone_nr)
+
+    const router = useRouter();
 
     const save = async () => { 
         const res = await http.put("/api/account", {
@@ -19,7 +22,7 @@ export default function EditAccount({customer}: {customer: Customer}) {
         })
 
         if(res.status === 200) {
-            location.reload();
+            router.refresh();
         }
     }
 
@@ -28,9 +31,16 @@ export default function EditAccount({customer}: {customer: Customer}) {
 
         const res = await http.delete("/api/account?ssn="+customer.ssn, null)
         if(res.status === 200) {
-            location.reload();
+            router.refresh();
         }
-    }, [customer.ssn])
+    }, [customer.ssn, router])
+
+    const logout = async () => {
+        const res = await http.get("/api/account/logout")
+        if(res.status === 200) {
+            router.push("/login")
+        }
+    }
     
     return(
         <>
@@ -51,6 +61,7 @@ export default function EditAccount({customer}: {customer: Customer}) {
 
                 <button onClick={save}>Save</button>
             </div>
+            <button onClick={logout} className={styles['delete-button']}>Logout</button>
             <button onClick={del} className={styles['delete-button']}>Delete Account</button>
         </div>
         </>

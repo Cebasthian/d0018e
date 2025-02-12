@@ -10,6 +10,12 @@ const Error = (status: number, message: string) => (error?: unknown) => new Next
  * Error 400 Bad request
  */
 export const BadRequest = Error(400, "Bad request")
+
+/**
+ * Error 401 Unauthorized
+ */
+export const Unauthorized = Error(401, "Unauthorized")
+
 /**
  * Error 500 Internal error
  */
