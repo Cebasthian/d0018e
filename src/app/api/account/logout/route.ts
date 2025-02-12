@@ -1,10 +1,7 @@
 import { SuccessResponse } from "@/lib/server/httpStatus";
-import { cookies } from "next/headers";
+import { deleteCustomerSessionCookie } from "@/lib/server/session/cookieStore";
 
 export async function GET() {
-    const cookieStore = await cookies();
-    if(cookieStore.has("session_token")) {
-        cookieStore.delete("session_token")
-    }
+    await deleteCustomerSessionCookie();
     return SuccessResponse();
 }
