@@ -4,9 +4,9 @@ import { Customer, Prisma } from "@prisma/client";
 
 export const CUSTOMER_INCLUDES: Prisma.CustomerInclude = {
     reviews: true,
-    shopping_basket: {
+    basket_items: {
         include: {
-            products: true,
+            product: true,
         }
     },
 }
@@ -16,7 +16,6 @@ export async function CreateAccount(data: Customer) {
     return await prisma.customer.create({
         data: {
             ...data,
-            shopping_basket: {create: {}}
         },
         include: CUSTOMER_INCLUDES,
     });

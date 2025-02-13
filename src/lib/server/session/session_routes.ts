@@ -1,12 +1,15 @@
 import { HasExpired } from "@/lib/util/dayjs";
 import { GetAdminSessionByToken } from "@/service/admin_session";
 import { GetCustomerSessionByToken } from "@/service/customer_session";
-import { Administrator, Customer } from "@prisma/client";
+import { Administrator } from "@prisma/client";
+import { PromiseReturnType } from "@prisma/client/extension";
 import { NextRequest, NextResponse } from "next/server";
 import { BadRequest, Unauthorized } from "../httpStatus";
 import { getAdminSessionCookie, getCustomerSessionCookie } from "./cookieStore";
 
-export const withCustomerSession = (routeHandler: (req: NextRequest, customer: Customer) => NextResponse) => {
+export type CustomerFromSessionType = Exclude<PromiseReturnType<typeof GetCustomerSessionByToken>, null>["customer"]
+
+export const withCustomerSession = (routeHandler: (req: NextRequest, customer: CustomerFromSessionType) => NextResponse | Promise<NextResponse>) => {
     return async (req: NextRequest) => {
         const session_token = await getCustomerSessionCookie();
 

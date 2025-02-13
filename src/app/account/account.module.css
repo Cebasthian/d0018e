@@ -19,3 +19,9 @@
         margin: 5px;
     }
 }
+
+.basket-item {
+    padding: 15px;
+    border: 1px solid black;
+    margin: 15px 0;
+}

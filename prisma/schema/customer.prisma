@@ -1,22 +1,26 @@
 model Customer {
-    ssn             String            @id // primary key
-    password        String
-    name            String
-    email           String
-    address         String
-    phone_nr        String
-    bonus_points    Int               @default(0)
+    ssn          String            @id // primary key
+    password     String
+    name         String
+    email        String
+    address      String
+    phone_nr     String
+    bonus_points Int               @default(0)
     //
-    shopping_basket Basket? // note: this field does not exist in the database
-    reviews         Review[]
-    sessions        CustomerSession[]
+    basket_items BasketItem[] // note: this field does not exist in the database
+    reviews      Review[]
+    sessions     CustomerSession[]
 }
 
-model Basket {
-    customer_ssn String    @id // primary & foreign key
+model BasketItem {
+    id           Int      @id @default(autoincrement())
+    customer_ssn String
+    product_id   String
+    added_on     DateTime
+    size         String
     //
-    customer     Customer  @relation(fields: [customer_ssn], references: [ssn], onDelete: Cascade, onUpdate: Cascade) // note: this field does not exist in the database.
-    products     Product[]
+    customer     Customer @relation(fields: [customer_ssn], references: [ssn], onDelete: Cascade, onUpdate: Cascade)
+    product      Product  @relation(fields: [product_id], references: [product_id], onDelete: Cascade, onUpdate: Cascade)
 }
 
 model Review {

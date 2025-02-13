@@ -2,8 +2,9 @@ import { GetAdminSessionByToken } from "@/service/admin_session";
 import { GetCustomerSessionByToken } from "@/service/customer_session";
 import { redirect } from "next/navigation";
 import { getAdminSessionCookie, getCustomerSessionCookie } from "./cookieStore";
+import { CustomerFromSessionType } from "./session_routes";
 
-export async function enforceCustomerSession() {
+export async function enforceCustomerSession(): Promise<CustomerFromSessionType> {
     const session_token = await getCustomerSessionCookie();
 
     if(!session_token || !session_token.value) {
