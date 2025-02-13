@@ -67,3 +67,9 @@
     font-size: 0.9rem;
     cursor: pointer;
 }
+
+.loginError {
+    color: red;
+    margin-top: "8px";
+    margin-bottom: "8px";
+}

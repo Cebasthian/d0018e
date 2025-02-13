@@ -9,6 +9,7 @@ export default function LoginPage() {
     const [ssn, setSsn] = useState("");
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
+    const [error, setError] = useState("");
     const router = useRouter();
 
     const login = async () => {
@@ -17,6 +18,19 @@ export default function LoginPage() {
         const json = await res.json();
         if (json && json.success) {
             router.push("/account");
+        } else if (res.status === 400) {
+            // added for invalid credentail error message.
+            setSsn("");
+            setPassword("");
+            setError("Invalid login credentials");
+        }
+    };
+
+    // "enter" key to submit.
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === "Enter") {
+            e.preventDefault();
+            login();
         }
     };
 
@@ -28,6 +42,7 @@ export default function LoginPage() {
                     onChange={(e) => setSsn(e.target.value)}
                     placeholder="SSN"
                     className={styles.inputField}
+                    onKeyDown={handleKeyDown}
                 />
                 <input
                     value={password}
@@ -35,6 +50,7 @@ export default function LoginPage() {
                     type={showPassword ? "text" : "password"}
                     placeholder="Password"
                     className={styles.inputField}
+                    onKeyDown={handleKeyDown}
                 />
 
                 <div className={styles.toggleContainer}>
@@ -52,7 +68,7 @@ export default function LoginPage() {
                         {showPassword ? "Hide" : "Show"}
                     </label>
                 </div>
-
+                {error && <p className={styles.loginError}>{error}</p>}
                 <button onClick={login} className={styles.loginButton}>
                     Login
                 </button>
