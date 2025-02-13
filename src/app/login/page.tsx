@@ -3,31 +3,16 @@
 import { http } from "@/lib/client/httpRequester";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import styles from "./login.module.css";
 
 export default function LoginPage() {
     const [ssn, setSsn] = useState("");
     const [password, setPassword] = useState("");
-    const [ssnExists, setSsnExists] = useState<boolean | null>(null);
+    const [showPassword, setShowPassword] = useState(false);
     const router = useRouter();
 
-    const check_ssn_for_account = async () => {
-        if (ssn.trim().length === 0) return;
-
-        try {
-            const res = await http.get(`/api/account?ssn=${ssn}`);
-
-            if (res.status === 200) {
-                setSsnExists(true);
-            } else {
-                setSsnExists(false);
-            }
-        } catch (error) {
-            setSsnExists(false);
-        }
-    };
-
     const login = async () => {
-        console.log("Logging in with:" , {ssn, password});
+        console.log("Logging in with:", { ssn, password });
         const res = await http.post("/api/account/login", { ssn, password });
         const json = await res.json();
         if (json && json.success) {
@@ -36,89 +21,42 @@ export default function LoginPage() {
     };
 
     return (
-        <div
-            style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "center",
-                height: "100vh",
-                width: "100vw",
-                padding: "1rem",
-            }}
-        >
-            <div style={{ width: "200px", position: "relative" }}>
+        <div className={styles.container}>
+            <div className={styles.loginForm}>
                 <input
                     value={ssn}
                     onChange={(e) => setSsn(e.target.value)}
-                    onBlur={check_ssn_for_account}
-                    onFocus={() => setSsnExists(null)} // to hide the message about if the account exists or not.
                     placeholder="SSN"
-                    style={{
-                        padding: "0.5rem",
-                        border: "1px solid #ddd",
-                        borderRadius: "4px",
-                        width: "200px",
-                    }}
+                    className={styles.inputField}
+                />
+                <input
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    type={showPassword ? "text" : "password"}
+                    placeholder="Password"
+                    className={styles.inputField}
                 />
 
-                {/* does account exist window*/}
-                <div
-                    style={{
-                        position: "absolute",
-                        top: "100%",
-                        left: 0,
-                        right: 0,
-                        overflow: "hidden",
-                        transition: "max-height 0.8s ease, opacity 0.3s ease",
-                        maxHeight: ssnExists === false ? "50px" : "0px",
-                        opacity: ssnExists === false ? 1 : 0,
-                    }}
-                >
-                    <div
-                        style={{
-                            backgroundColor: "#f9f9f9",
-                            border: "1px solid #ddd",
-                            borderRadius: "4px",
-                            padding: "0.5rem",
-                            marginTop: "0.5rem",
-                            textAlign: "center",
-                            color: ssnExists ? "" : "red",
-                            fontSize: "0.9rem",
-                        }}
+                <div className={styles.toggleContainer}>
+                    <input
+                        type="checkbox"
+                        id="passwordToggle"
+                        checked={showPassword}
+                        onChange={(e) => setShowPassword(e.target.checked)}
+                        className={styles.toggleCheckbox}
+                    />
+                    <label
+                        htmlFor="passwordToggle"
+                        className={styles.toggleLabel}
                     >
-                        {ssnExists ? "" : "No account found"}
-                    </div>
+                        {showPassword ? "Hide" : "Show"}
+                    </label>
                 </div>
+
+                <button onClick={login} className={styles.loginButton}>
+                    Login
+                </button>
             </div>
-
-            <input
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                type="password"
-                placeholder="Password"
-                style={{
-                    padding: "0.5rem",
-                    border: "1px solid #ddd",
-                    borderRadius: "4px",
-                    width: "200px",
-                }}
-            />
-
-            <button
-                onClick={login}
-                style={{
-                    padding: "0.5rem",
-                    backgroundColor: "#0070f3",
-                    color: "white",
-                    border: "none",
-                    borderRadius: "4px",
-                    cursor: "pointer",
-                    width: "200px",
-                }}
-            >
-                Login
-            </button>
         </div>
     );
 }
