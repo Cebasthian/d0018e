@@ -79,3 +79,14 @@ body {
 .submitButton:hover {
     background-color: #005bb5;
 }
+
+.error {
+    color: red;
+    font-size: 14px;
+    margin-top: 8px;
+    text-align: center;
+}
+
+.errorBorder {
+    border: 2px solid red !important;
+}

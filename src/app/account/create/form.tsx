@@ -7,13 +7,37 @@ import styles from "./account-create.module.css";
 export default function CreateAccountForm() {
     const [success, setSuccess] = useState(false);
     const [disabledSubmit, setDisabledSubmit] = useState(false);
+    const [errors, setErrors] = useState<Record<string, boolean>>({});
+    const [showErrorMessage, setShowErrorMessage] = useState(false);
 
     const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
         setSuccess(false);
         setDisabledSubmit(true);
-        e.preventDefault();
+        setShowErrorMessage(false);
 
         const formData = new FormData(e.currentTarget);
+        
+        const fields = ["email", "password", "ssn", "name", "address", "phone_nr"];
+        
+        const newErrors: Record<string, boolean> = {};
+        let hasError = false;
+
+        fields.forEach(field => {
+            if(!formData.get(field)) {
+                newErrors[field] = true;
+                hasError = true;
+            }
+        });
+
+        setErrors(newErrors);
+
+        if(hasError) {
+            setShowErrorMessage(true);
+            setDisabledSubmit(false);
+        }
+        
+        
 
         const email = formData.get("email");
         const password = formData.get("password");
@@ -43,6 +67,7 @@ export default function CreateAccountForm() {
         if (res.status === 200) {
             setSuccess(true);
             setDisabledSubmit(false);
+            setErrors({});
         } else {
             setTimeout(() => {
                 setDisabledSubmit(false);
@@ -55,14 +80,15 @@ export default function CreateAccountForm() {
             <div className={styles.card}>
                 <h2 className={styles.title}>Create Account</h2>
                 <form onSubmit={onSubmit} className={styles.form}>
-                    <FormInput name="email">E-Mail</FormInput>
-                    <FormInput name="password" password>
+                    <FormInput name="email" error={errors.email}>E-Mail</FormInput>
+                    <FormInput name="password" password error={errors.password}>
                         Password
                     </FormInput>
-                    <FormInput name="ssn">Social Security Number</FormInput>
-                    <FormInput name="name">Full Name</FormInput>
-                    <FormInput name="address">Address</FormInput>
-                    <FormInput name="phone_nr">Phone Number</FormInput>
+                    <FormInput name="ssn" error={errors.ssn}>Social Security Number</FormInput>
+                    <FormInput name="name" error={errors.name}>Full Name</FormInput>
+                    <FormInput name="address" error={errors.address}>Address</FormInput>
+                    <FormInput name="phone_nr" error={errors.phone_nr}>Phone Number</FormInput>
+                    {showErrorMessage && <b className={styles.error}>All fields must be filled.</b>}
                     <b className={styles.success}>{success ? "Success" : ""}</b>
                     <input
                         disabled={disabledSubmit}
@@ -79,9 +105,12 @@ type FormInputProps = {
     children: React.ReactNode;
     name: string;
     password?: boolean;
+    error?: boolean;
 };
 
-const FormInput = ({ children, name, password }: FormInputProps) => {
+const FormInput = ({ children, name, password, error }: FormInputProps) => {
+    const [touched, setTouched] = useState(false); // if touched input field.
+    
     return (
         <>
             <label>
@@ -89,7 +118,9 @@ const FormInput = ({ children, name, password }: FormInputProps) => {
                 <input
                     type={password ? "password" : "text"}
                     name={name}
-                    className={styles.input}
+                    className={`${styles.input} ${error && touched ? styles.errorBorder : ""}`}
+                    onBlur={(e) => setTouched(!e.target.value)}
+                    onChange={(e) => setTouched(false)}
                 />
             </label>
         </>
