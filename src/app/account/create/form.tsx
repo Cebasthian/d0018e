@@ -17,14 +17,21 @@ export default function CreateAccountForm() {
         setShowErrorMessage(false);
 
         const formData = new FormData(e.currentTarget);
-        
-        const fields = ["email", "password", "ssn", "name", "address", "phone_nr"];
-        
+
+        const fields = [
+            "email",
+            "password",
+            "ssn",
+            "name",
+            "address",
+            "phone_nr",
+        ];
+
         const newErrors: Record<string, boolean> = {};
         let hasError = false;
 
-        fields.forEach(field => {
-            if(!formData.get(field)) {
+        fields.forEach((field) => {
+            if (!formData.get(field)) {
                 newErrors[field] = true;
                 hasError = true;
             }
@@ -32,12 +39,11 @@ export default function CreateAccountForm() {
 
         setErrors(newErrors);
 
-        if(hasError) {
+        if (hasError) {
             setShowErrorMessage(true);
             setDisabledSubmit(false);
+            return;
         }
-        
-        
 
         const email = formData.get("email");
         const password = formData.get("password");
@@ -80,15 +86,29 @@ export default function CreateAccountForm() {
             <div className={styles.card}>
                 <h2 className={styles.title}>Create Account</h2>
                 <form onSubmit={onSubmit} className={styles.form}>
-                    <FormInput name="email" error={errors.email}>E-Mail</FormInput>
+                    <FormInput name="email" error={errors.email}>
+                        E-Mail
+                    </FormInput>
                     <FormInput name="password" password error={errors.password}>
                         Password
                     </FormInput>
-                    <FormInput name="ssn" error={errors.ssn}>Social Security Number</FormInput>
-                    <FormInput name="name" error={errors.name}>Full Name</FormInput>
-                    <FormInput name="address" error={errors.address}>Address</FormInput>
-                    <FormInput name="phone_nr" error={errors.phone_nr}>Phone Number</FormInput>
-                    {showErrorMessage && <b className={styles.error}>All fields must be filled.</b>}
+                    <FormInput name="ssn" error={errors.ssn}>
+                        Social Security Number
+                    </FormInput>
+                    <FormInput name="name" error={errors.name}>
+                        Full Name
+                    </FormInput>
+                    <FormInput name="address" error={errors.address}>
+                        Address
+                    </FormInput>
+                    <FormInput name="phone_nr" error={errors.phone_nr}>
+                        Phone Number
+                    </FormInput>
+                    {showErrorMessage && (
+                        <b className={styles.error}>
+                            All fields must be filled.
+                        </b>
+                    )}
                     <b className={styles.success}>{success ? "Success" : ""}</b>
                     <input
                         disabled={disabledSubmit}
@@ -110,7 +130,7 @@ type FormInputProps = {
 
 const FormInput = ({ children, name, password, error }: FormInputProps) => {
     const [touched, setTouched] = useState(false); // if touched input field.
-    
+
     return (
         <>
             <label>
@@ -118,7 +138,9 @@ const FormInput = ({ children, name, password, error }: FormInputProps) => {
                 <input
                     type={password ? "password" : "text"}
                     name={name}
-                    className={`${styles.input} ${error && touched ? styles.errorBorder : ""}`}
+                    className={`${styles.input} ${
+                        error && touched ? styles.errorBorder : ""
+                    }`}
                     onBlur={(e) => setTouched(!e.target.value)}
                     onChange={(e) => setTouched(false)}
                 />
