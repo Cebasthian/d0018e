@@ -9,7 +9,8 @@
     "lint": "next lint",
     "prisma:push": "npx prisma db push",
     "prisma:gen": "npx prisma generate",
-    "swagger": "npx next-openapi-gen generate"
+    "swagger": "npx next-openapi-gen generate",
+    "setup": "yarn && yarn prisma:push && yarn swagger"
   },
   "dependencies": {
     "@prisma/client": "^6.3.1",
