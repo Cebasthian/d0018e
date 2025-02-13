@@ -1,6 +1,6 @@
 import { prisma } from "@/lib/server/prisma";
 import { CUSTOMER_SESSION_LIFESPAN } from "@/lib/util/constants";
-import { CreateExpirationDate } from "@/lib/util/dayjs";
+import { CreateExpirationDate, Today } from "@/lib/util/dayjs";
 import { CUSTOMER_INCLUDES } from "./customer_account";
 
 export async function CreateCustomerSession(ssn: string) {
@@ -19,7 +19,7 @@ export async function GetCustomerSessionByToken(session_token: string) {
         where: {
             session_token: session_token,
             expiry_date: {
-                gt: new Date()
+                gt: Today()
             }
         },
         include: {

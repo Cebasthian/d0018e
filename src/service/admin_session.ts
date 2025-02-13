@@ -1,6 +1,6 @@
 import { prisma } from "@/lib/server/prisma";
 import { ADMIN_SESSION_LIFESPAN } from "@/lib/util/constants";
-import { CreateExpirationDate } from "@/lib/util/dayjs";
+import { CreateExpirationDate, Today } from "@/lib/util/dayjs";
 
 export async function CreateAdminSession(ssn: string) {
     const expiry = CreateExpirationDate(ADMIN_SESSION_LIFESPAN);
@@ -18,7 +18,7 @@ export async function GetAdminSessionByToken(session_token: string) {
         where: {
             session_token: session_token,
             expiry_date: {
-                gt: new Date()
+                gt: Today()
             }
         },
         include: {

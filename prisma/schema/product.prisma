@@ -3,17 +3,17 @@
  */
 
 model Product {
-    product_id  String   @id @default(nanoid(12))
-    name        String
-    price       Int
-    description String   @default("")
-    tag         String   @default("")
-    available   Boolean  @default(false)
+    product_id   String       @id @default(nanoid(12))
+    name         String
+    price        Int
+    description  String       @default("")
+    tag          String       @default("")
+    available    Boolean      @default(false)
     //
-    stock       Stock?
-    images      Image[]
-    reviews     Review[]
-    baskets     Basket[]
+    stock        Stock?
+    images       Image[]
+    reviews      Review[]
+    basket_items BasketItem[]
 }
 
 model Stock {

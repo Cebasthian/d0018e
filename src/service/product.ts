@@ -3,6 +3,24 @@ import type { DeepPartial } from "@/types";
 import type { Customer, Prisma } from "@prisma/client";
 import { PromiseReturnType } from "@prisma/client/extension";
 
+export const PRODUCT_INCLUDES: Prisma.ProductInclude = {
+    stock: true,
+    images: {
+        orderBy: {
+            list_index: "asc"
+        }
+    },
+    reviews: {
+        include: {
+            customer: {
+                select: {
+                    name: true,
+                }
+            }
+        }
+    }
+}
+
 type GetProductsOptions = {
     amount?: number,
     offset?: number,
@@ -19,19 +37,7 @@ export async function GetProducts(options: GetProductsOptions = {}) {
             tag: options.tag,
             available: options.publicOnly ? true : undefined
         },
-        include: {
-            stock: {
-                omit: {
-                    product_id: true
-                }
-            },
-            images: {
-                orderBy: {
-                    list_index: "asc"
-                }
-            },
-            // reviews: true
-        },
+        include: PRODUCT_INCLUDES,
         take: options.amount,
         skip: options.offset,
         orderBy: options.orderBy || {
@@ -47,23 +53,7 @@ export async function GetProductById(product_id: string) {
         where: {
             product_id
         },
-        include: {
-            stock: {
-                omit: {
-                    product_id: true
-                }
-            },
-            images: {
-                orderBy: {
-                    list_index: "asc"
-                }
-            },
-            reviews: {
-                include: {
-                    customer: true
-                }
-            }
-        },
+        include: PRODUCT_INCLUDES,
     })
 }
 
