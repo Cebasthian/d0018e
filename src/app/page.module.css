@@ -1,0 +1,21 @@
+.main {
+    display: flex;
+    flex-direction: column;
+}
+
+.tag {
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+}
+
+.product {
+    margin: 5px;
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+    & > span {
+        margin: 2px 4px;
+    }
+}

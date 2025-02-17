@@ -7,6 +7,32 @@ export async function GET() {
     // await prisma.product.createMany({
     //     data: products
     // })
+
+    const products: Prisma.ProductCreateInput[] = [
+        {
+            name: "T-Shirt 1",
+            description: "Shirt description",
+            tag: "tag1",
+            price: Math.floor(Math.random() * 900) + 100,
+        },{
+            name: "T-Shirt 2",
+            description: "Shirt description",
+            tag: "tag1",
+            price: Math.floor(Math.random() * 900) + 100,
+        },{
+            name: "T-Shirt 3",
+            description: "Shirt description",
+            tag: "tag2",
+            price: Math.floor(Math.random() * 900) + 100,
+        },{
+            name: "T-Shirt 4",
+            description: "Shirt description",
+            tag: "tag3",
+            price: Math.floor(Math.random() * 900) + 100,
+        },
+    ]
+
+
     for(let i = 0; i < products.length; i++) {
         await CreateProduct(products[i])
     }
@@ -14,26 +40,3 @@ export async function GET() {
     return NextResponse.json({success: true})
 }
 
-const products: Prisma.ProductCreateInput[] = [
-    {
-        name: "Ugh Minimal Wear",
-        description: "yes",
-        tag: "ugh",
-        price: 100,
-    },{
-        name: "Vintage Extra",
-        description: "idk",
-        tag: "vintage",
-        price: 200,
-    },{
-        name: "Vintage Deluxe",
-        description: "lorem ipsum",
-        tag: "vintage",
-        price: 50,
-    },{
-        name: "Ugh FN",
-        description: "gold gold gold",
-        tag: "ugh",
-        price: 500,
-    },
-]
