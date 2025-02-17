@@ -1,34 +1,21 @@
-import { GetProducts } from "@/service/product";
+import type { GetProducts } from "@/service/product";
 import { PromiseReturnType } from "@prisma/client/extension";
 import Link from "next/link";
-import styles from "./products.module.css";
-
-export default async function ProductsPage() {
-
-    const products = await GetProducts();
-
-    return(
-        <>
-        <div className={styles.container}>
-            {products.map(e => <Product key={e.product_id} product={e} />)}
-        </div>
-        </>
-    )
-}
+import styles from "./admin-product.module.css";
 
 type ProductProps = {
     product: PromiseReturnType<typeof GetProducts>[0]
 }
 
-function Product({
+export const Product = ({
     product
-}: ProductProps) {
+}: ProductProps) => {
     return(
         <>
         <Link style={{
             color: "black",
             textDecoration: "none"
-        }} href={`/product/${product.product_id}`}>
+        }} href={`/admin/product/${product.product_id}`}>
         <div className={styles.product}>
             <h3>{product.name}</h3>
             <span>{product.description}</span>

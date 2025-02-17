@@ -2,7 +2,7 @@
 
 import { http } from "@/lib/client/httpRequester";
 import { FormEvent, useState } from "react";
-import styles from "./account-create.module.css";
+import styles from "./signup.module.css";
 
 export default function CreateAccountForm() {
     const [success, setSuccess] = useState(false);

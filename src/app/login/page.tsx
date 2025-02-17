@@ -1,6 +1,7 @@
 "use client";
 
 import { http } from "@/lib/client/httpRequester";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import styles from "./login.module.css";
@@ -17,7 +18,7 @@ export default function LoginPage() {
         const res = await http.post("/api/account/login", { ssn, password });
         const json = await res.json();
         if (json && json.success) {
-            router.push("/account");
+            router.push("/");
         } else if (res.status === 400) {
             // added for invalid credentail error message.
             setSsn("");
@@ -72,6 +73,9 @@ export default function LoginPage() {
                 <button onClick={login} className={styles.loginButton}>
                     Login
                 </button>
+                <div className={styles['no-account']}>
+                    <span>{"Don't have an account?"} <Link href="/signup">Sign up</Link></span>
+                </div>
             </div>
         </div>
     );

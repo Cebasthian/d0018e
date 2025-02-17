@@ -1,7 +1,7 @@
 import { GetProductById } from "@/service/product";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Product } from "../page";
+import { Product } from "../product_component";
 import EditProduct from "./EditProduct";
 
 import styles from "./admin-product-edit.module.css";

@@ -8,11 +8,11 @@
     display: flex;
     flex-direction: column;
 
-    label {
+    & label {
         margin: 5px;
         display: flex;
         
-        span {
+        & span {
             margin: 0 5px;
         }
     }

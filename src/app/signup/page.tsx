@@ -1,5 +1,5 @@
-import styles from "./account-create.module.css"
 import CreateAccountForm from "./form"
+import styles from "./signup.module.css"
 
 export default function CreateAccountPage() {
     

@@ -38,7 +38,7 @@ export default function EditAccount({customer}: {customer: Customer}) {
     const logout = async () => {
         const res = await http.get("/api/account/logout")
         if(res.status === 200) {
-            router.push("/login")
+            router.push("/")
         }
     }
     

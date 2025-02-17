@@ -8,13 +8,16 @@
 .edit {
     display: flex;
     flex-direction: column;
-    label {
+
+    & label {
         margin: 3px 0;
-        span {
+
+        & span {
             margin: 0 5px 0 0;
         }
     }
-    button {
+    
+    & button {
         margin: 5px;
         width: 100px;
     }

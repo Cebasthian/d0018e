@@ -5,9 +5,11 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    background: red;
+    position: fixed;
+    bottom: 0;
+    left: 0;
 
-    > span {
+    & > span {
         margin: 5px;
     }
 }
