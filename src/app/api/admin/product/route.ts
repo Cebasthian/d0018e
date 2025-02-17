@@ -53,6 +53,8 @@ export async function PUT(req: NextRequest) {
         return BadRequest("Invalid field product_id")
     }
 
+    const x = {...stock, product_id: undefined}
+
     try {
         await UpdateProduct(product_id, {
             name,
@@ -62,7 +64,7 @@ export async function PUT(req: NextRequest) {
             available,
             stock: {
                 update: {
-                    data: stock
+                    data: x
                 }
             }
         })

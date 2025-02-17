@@ -1,15 +1,15 @@
-import { prisma } from "@/lib/server/prisma";
+import { CreateProduct } from "@/service/product";
 import { Prisma } from "@prisma/client";
 import { NextResponse } from "next/server";
 
 export async function GET() {
 
-    await prisma.product.createMany({
-        data: products
-    })
-    // for(let i = 0; i < products.length; i++) {
-    //     await CreateProduct(products[i])
-    // }
+    // await prisma.product.createMany({
+    //     data: products
+    // })
+    for(let i = 0; i < products.length; i++) {
+        await CreateProduct(products[i])
+    }
 
     return NextResponse.json({success: true})
 }
