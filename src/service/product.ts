@@ -1,6 +1,6 @@
 import { prisma } from "@/lib/server/prisma";
 import type { DeepPartial } from "@/types";
-import type { Customer, Prisma } from "@prisma/client";
+import type { Prisma, Product } from "@prisma/client";
 import { PromiseReturnType } from "@prisma/client/extension";
 
 export const PRODUCT_INCLUDES: Prisma.ProductInclude = {
@@ -26,7 +26,7 @@ type GetProductsOptions = {
     offset?: number,
     tag?: string,
     orderBy?: {
-        [field in keyof DeepPartial<Customer>]: "asc" | "desc"
+        [field in keyof DeepPartial<Product>]: "asc" | "desc"
     },
     publicOnly?: boolean
 }

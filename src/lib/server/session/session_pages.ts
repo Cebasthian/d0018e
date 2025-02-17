@@ -21,6 +21,25 @@ export async function enforceCustomerSession(): Promise<CustomerFromSessionType>
     return session.customer;
 }
 
+export async function tryCustomerSession(): Promise<CustomerFromSessionType|null> {
+    const session_token = await getCustomerSessionCookie();
+
+    if(!session_token || !session_token.value) {
+        // Session token missing or invalid
+        return null;
+    }
+    
+    const session = await GetCustomerSessionByToken(session_token.value)
+    if(!session) {
+        // Session not found or expired
+        return null;
+    }     
+
+    return session.customer;
+}
+
+
+
 export async function enforceAdminSession() {
     const session_token = await getAdminSessionCookie();
 
@@ -37,3 +56,4 @@ export async function enforceAdminSession() {
 
     return session.administrator;
 }
+

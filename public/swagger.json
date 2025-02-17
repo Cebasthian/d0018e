@@ -378,6 +378,55 @@
         }
       }
     },
+    "/basket/add": {
+      "post": {
+        "operationId": "post-basket-add",
+        "summary": "",
+        "description": "",
+        "tags": [
+          "Basket"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {}
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/basket/remove": {
+      "delete": {
+        "operationId": "delete-basket-remove",
+        "summary": "",
+        "description": "",
+        "tags": [
+          "Basket"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
     "/product": {
       "get": {
         "operationId": "get-product",
