@@ -14,11 +14,11 @@ export default function EditAccount({customer}: {customer: Customer}) {
     const router = useRouter();
 
     const save = async () => { 
-        const res = await http.put("/api/account", {
+        const res = await http.put("/api/account/update", {
             name,
             address,
             phone_nr,
-            ssn: customer.ssn
+            // email,
         })
 
         if(res.status === 200) {
@@ -29,11 +29,11 @@ export default function EditAccount({customer}: {customer: Customer}) {
     const del = useCallback(async () => {
         if(!confirm("Are you sure you want to delete your account?")) return;
 
-        const res = await http.delete("/api/account?ssn="+customer.ssn, null)
+        const res = await http.delete("/api/account/delete", null)
         if(res.status === 200) {
             router.refresh();
         }
-    }, [customer.ssn, router])
+    }, [router])
 
     const logout = async () => {
         const res = await http.get("/api/account/logout")

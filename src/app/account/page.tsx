@@ -3,9 +3,6 @@ import styles from "./account.module.css";
 import Basket from "./basket";
 import EditAccount from "./EditAccount";
 
-// TODO: Istället för att använda oss av searchParams så använder vi sessionManagement för att veta vem som är användaren
-// Vi redirectar till typ /login eller /account/create om de inte är inloggade.
-
 export default async function AccountPage() {
 
     const customer = await enforceCustomerSession();

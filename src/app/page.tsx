@@ -18,7 +18,7 @@ export default async function Home() {
         <Footer/>
 
 
-        <Link href="/account/create">Create Account</Link> <br/>
+        <Link href="/signup">Create Account</Link> <br/>
         <Link href="/login">Login</Link> <br/>
         <Link href="/account">My account</Link>
         </>

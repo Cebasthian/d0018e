@@ -16,7 +16,7 @@ export function useCustomer(fallback: CustomerFromSessionType): {
 };
 
 export function useCustomer(fallback?: CustomerFromSessionType) {
-    const {data, mutate} = useSWR<CustomerFromSessionType>("/api/account/get", fetcher)
+    const {data, mutate} = useSWR<CustomerFromSessionType>("/api/account", fetcher)
 
     const [customer, setCustomer] = useState<CustomerFromSessionType|undefined>(fallback)
 

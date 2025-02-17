@@ -61,7 +61,7 @@ export default function CreateAccountForm() {
         //     phone_nr
         // } = e.target
 
-        const res = await http.post("/api/account", {
+        const res = await http.post("/api/account/signup", {
             email,
             password,
             ssn,
