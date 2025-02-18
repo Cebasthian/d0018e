@@ -1,6 +1,7 @@
+import { HttpErrorMessage } from "@/types";
 import { NextResponse } from "next/server";
 
-const Error = (status: number, message: string) => (error?: unknown) => new NextResponse(JSON.stringify({
+const Error = (status: number, message: string) => (error?: unknown) => new NextResponse<HttpErrorMessage>(JSON.stringify({
     message,
     error,
     status
