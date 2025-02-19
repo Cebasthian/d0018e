@@ -1,3 +1,107 @@
-.container {
-    
+.product_container {
+    max-width: 700px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+
+}
+
+.product_container h2 {
+    font-size: 0.69rem;
+}
+
+.description_container {
+    margin: 1rem auto;
+    padding: 1rem;
+    border-radius: 2px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.product_container h1 {
+    font-size: 2.5rem;
+}
+
+.product_container p {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    color: #444;
+}
+
+.product_container Image {
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.product_container Image:hover {
+    transform: translateY(-2px);
+    transition: transform 0.2 ease-in-out;
+}
+
+/*Review part:*/
+.review {
+    max-width: 700px;
+    margin: 2rem auto;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.reviewForm {
+    margin-bottom: 2rem;
+}
+
+.reviewForm .rating {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.reviewForm .rating span {
+    font-weight: bold;
+}
+
+.reviewForm label {
+    cursor: pointer;
+}
+
+.comment {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+}
+
+.reviewForm textarea {
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: 1px solid #CCC;
+    border-radius: 4px;
+    resize: vertical;
+}
+
+.reviewForm Button {
+    padding: 0.5rem 1rem;
+    background-color: #1877f2;
+    border: 1px solid #CCC;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.reviewForm Button:hover {
+    background-color: #166fe5;
+}
+
+/*List of review styling:*/
+
+.reviewList {
+    margin-top: 2rem;
+}
+
+.reviewComment {
+    margin-top: 1px;
+    /*idk*/
 }
