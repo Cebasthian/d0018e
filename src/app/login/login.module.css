@@ -50,6 +50,7 @@
 }
 
 .toggleContainer {
+    max-width: fit-content;
     right: 10px;
     top: 50%;
     transform: translateY(-50%);

@@ -54,7 +54,7 @@ export default function LoginPage() {
                     onKeyDown={handleKeyDown}
                 />
 
-                <div className={styles.toggleContainer}>
+                <label className={styles.toggleContainer}>
                     <input
                         type="checkbox"
                         id="passwordToggle"
@@ -68,13 +68,16 @@ export default function LoginPage() {
                     >
                         {showPassword ? "Hide" : "Show"}
                     </label>
-                </div>
+                </label>
                 {error && <p className={styles.loginError}>{error}</p>}
                 <button onClick={login} className={styles.loginButton}>
                     Login
                 </button>
-                <div className={styles['no-account']}>
-                    <span>{"Don't have an account?"} <Link href="/signup">Sign up</Link></span>
+                <div className={styles["no-account"]}>
+                    <span>
+                        {"Don't have an account?"}{" "}
+                        <Link href="/signup">Sign up</Link>
+                    </span>
                 </div>
             </div>
         </div>
