@@ -38,6 +38,7 @@ export default function LoginPage() {
     return (
         <div className={styles.container}>
             <div className={styles.loginForm}>
+                <h1>Social security number</h1>
                 <input
                     value={ssn}
                     onChange={(e) => setSsn(e.target.value)}
@@ -45,6 +46,7 @@ export default function LoginPage() {
                     className={styles.inputField}
                     onKeyDown={handleKeyDown}
                 />
+                <h1>Password</h1>
                 <input
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
@@ -53,7 +55,6 @@ export default function LoginPage() {
                     className={styles.inputField}
                     onKeyDown={handleKeyDown}
                 />
-
                 <label className={styles.toggleContainer}>
                     <input
                         type="checkbox"

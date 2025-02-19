@@ -8,6 +8,10 @@
     padding-top: 5%;
 }
 
+.loginForm h1 {
+    font-weight: lighter;
+}
+
 .loginForm {
     width: 700px;
     margin: 0 auto;
