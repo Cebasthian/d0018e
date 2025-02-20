@@ -1,0 +1,35 @@
+/* src/components/SizeSelector.module.css */
+.sizeSelectorContainer {
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .sizeSelectorContainer label {
+    font-weight: bold;
+  }
+  
+  .sizeSelectorContainer select {
+    padding: 5px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+  }
+  
+  .addButton {
+    background-color: #1877f2;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .addButton:hover {
+    background-color: #166fe5;
+  }
+  

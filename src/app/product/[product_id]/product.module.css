@@ -29,6 +29,10 @@
     color: #444;
 }
 
+.size_selector_container {
+    margin-left: 2px;
+}
+
 .product_container Image {
     border-radius: 8px;
     margin-bottom: 1.5rem;
