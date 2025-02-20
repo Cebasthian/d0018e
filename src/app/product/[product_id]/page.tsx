@@ -14,8 +14,6 @@ export default async function ProductPage({
     const { product_id } = await params;
     const product = await GetProductById(product_id);
     if (product == null) return notFound();
-   
-
 
     return (
         <>
@@ -30,12 +28,14 @@ export default async function ProductPage({
                     alt="temp"
                 />
 
-<SizeSelector productId={product.product_id} productName={product.name} />
+                <SizeSelector
+                    productId={product.product_id}
+                    productName={product.name}
+                />
 
                 <div className={styles.description_container}>
                     <p>Description: {product.description}</p>
                 </div>
-                
             </div>
             <div className={styles.review}>
                 <h2>Reviews</h2>
