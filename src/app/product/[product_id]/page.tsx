@@ -4,6 +4,7 @@ import { GetProductById } from "@/service/product";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import styles from "./product.module.css";
+import ReviewForm from "./reviewForm";
 import SizeSelector from "./SizeSelector";
 
 export default async function ProductPage({
@@ -14,6 +15,9 @@ export default async function ProductPage({
     const { product_id } = await params;
     const product = await GetProductById(product_id);
     if (product == null) return notFound();
+
+
+    
 
     return (
         <>
@@ -37,6 +41,8 @@ export default async function ProductPage({
                     <p>Description: {product.description}</p>
                 </div>
             </div>
+
+            {/* Review part*/}
             <div className={styles.review}>
                 <h2>Reviews</h2>
                 <form className={styles.reviewForm}>
@@ -70,15 +76,8 @@ export default async function ProductPage({
                     <button type="submit">Submit review</button>
                 </form>
 
-                <div className={styles.review_list}>
-                    <h3>Others reviews</h3>
-                    {/*{reviews.map((rev, index) => (
-                        <div key={index} className={styles.reviewItem}>
-                            <div className={styles.reviewRating}>Rating: {rev.rating} / 5 </div>
-                            <p className={styles.reviewComment}>{rev.comment}</p>
-                        </div>
-                    ))}*/}
-                </div>
+                {/* review submission part */}
+                <ReviewForm productId={product.product_id}/>
             </div>
             <Footer />
         </>

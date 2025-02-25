@@ -27,6 +27,9 @@ model Review {
     review_id    String   @id @default(uuid())
     customer_ssn String
     product_id   String
+    rating       Int      // 1-5 sjärnor. TODO: average på product page 
+    comment      String   // Finns dem på något annat ställe?
+    createdAt    DateTime @default(now())
     //
     customer     Customer @relation(fields: [customer_ssn], references: [ssn], onDelete: NoAction)
     product      Product  @relation(fields: [product_id], references: [product_id])
