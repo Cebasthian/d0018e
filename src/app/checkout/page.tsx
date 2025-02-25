@@ -14,6 +14,7 @@ export default async function CheckoutPage() {
         <Top/>
         <main className={styles.container}>
             <CheckoutDetails customer={customer}/>
+            <div style={{borderLeft: "1px solid black", width: "1px", alignSelf: "stretch"}}></div>
             <CheckoutCart customer={customer}/>
         </main>
         <Footer/>

@@ -36,6 +36,15 @@ export async function GetCustomerSessionByToken(session_token: string) {
                             }
                         }
                     },
+                    orders: {
+                        include: {
+                            order_items: {
+                                include: {
+                                    Product: true
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }

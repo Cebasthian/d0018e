@@ -63,6 +63,7 @@ export default function CheckoutCart({
     return (
         <>
             <div className={styles.cart}>
+                <h2>Shopping Basket</h2>
                 <div className={styles["cart-basket"]}>{items}</div>
                 <div className={styles["cart-total"]}>
                     <span>Total</span>

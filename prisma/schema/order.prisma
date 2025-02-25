@@ -5,6 +5,7 @@ model Order {
     shipping_address    String
     shipping_city       String
     shipping_postalcode String
+    processed           Boolean     @default(false)
     //
     order_items         OrderItem[]
     customer            Customer    @relation(fields: [customer_ssn], references: [ssn], onDelete: Cascade, onUpdate: Cascade)

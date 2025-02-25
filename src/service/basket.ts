@@ -25,3 +25,11 @@ export async function removeFromBasket({
         }
     })
 }
+
+export async function clearBasket(customer_ssn: string) {
+    return prisma.basketItem.deleteMany({
+        where: {
+            customer_ssn: customer_ssn
+        }
+    })
+}

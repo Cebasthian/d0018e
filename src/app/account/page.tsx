@@ -50,7 +50,7 @@ export default async function AccountPage() {
                 {/* <pre>{JSON.stringify(customer.basket_items, null, 4)}</pre> */}
             </div>
         </div>
-        {/* <pre>{JSON.stringify(customer, null, 4)}</pre> */}
+        <pre>{JSON.stringify(customer.orders, null, 4)}</pre>
         </>
     )
 }
