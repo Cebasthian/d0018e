@@ -1,7 +1,7 @@
 import { prisma } from "@/lib/server/prisma";
 import { CUSTOMER_SESSION_LIFESPAN } from "@/lib/util/constants";
 import { CreateExpirationDate, Today } from "@/lib/util/dayjs";
-import { CUSTOMER_INCLUDES } from "./customer_account";
+// import { CUSTOMER_INCLUDES } from "./customer_account";
 
 export async function CreateCustomerSession(ssn: string) {
     const expiry = CreateExpirationDate(CUSTOMER_SESSION_LIFESPAN);
@@ -23,8 +23,20 @@ export async function GetCustomerSessionByToken(session_token: string) {
             }
         },
         include: {
+            // customer: CUSTOMER_INCLUDES
             customer: {
-                include: CUSTOMER_INCLUDES
+                include: {
+                    reviews: true,
+                    basket_items: {
+                        include: {
+                            product: {
+                                include: {
+                                    images: true,
+                                }
+                            }
+                        }
+                    },
+                }
             }
         }
     })
