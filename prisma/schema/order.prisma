@@ -1,10 +1,13 @@
 model Order {
-    order_id     String      @id @default(uuid())
-    customer_ssn String
-    created_at   DateTime
+    order_id            String      @id @default(uuid())
+    customer_ssn        String
+    created_at          DateTime
+    shipping_address    String
+    shipping_city       String
+    shipping_postalcode String
     //
-    order_items  OrderItem[]
-    customer     Customer    @relation(fields: [customer_ssn], references: [ssn], onDelete: Cascade, onUpdate: Cascade)
+    order_items         OrderItem[]
+    customer            Customer    @relation(fields: [customer_ssn], references: [ssn], onDelete: Cascade, onUpdate: Cascade)
 }
 
 model OrderItem {
