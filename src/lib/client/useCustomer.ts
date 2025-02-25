@@ -1,5 +1,4 @@
 import { HttpErrorMessage } from "@/types";
-import { useEffect, useState } from "react";
 import useSWR from "swr";
 import { CustomerFromSessionType } from "../server/session/session_routes";
 
@@ -40,21 +39,25 @@ export function useCustomer(fallback: CustomerFromSessionType): {
     customer: CustomerFromSessionType,
     refresh: () => void
 };
+export function useCustomer(fallback: CustomerFromSessionType|null): {
+    customer: CustomerFromSessionType|null,
+    refresh: () => void
+}
 
-export function useCustomer(fallback?: CustomerFromSessionType) {
+export function useCustomer(fallback?: CustomerFromSessionType|null) {
     const {data, mutate} = useSWR<CustomerFromSessionType>("/api/account", fetcher)
 
-    const [customer, setCustomer] = useState<CustomerFromSessionType|undefined>(fallback)
+    // const [customer, setCustomer] = useState<CustomerFromSessionType|undefined>(fallback)
 
-    useEffect(() => {
-        if(data)
-            setCustomer(data)
-    }, [data])
+    // useEffect(() => {
+    //     if(data)
+    //         setCustomer(data)
+    // }, [data])
 
     const refresh = () => {
         mutate()
     }
 
-    return {customer, refresh}
+    return {customer: data || fallback, refresh}
 }
 

@@ -1,6 +1,7 @@
 // src/components/SizeSelector.tsx
 "use client";
 
+import { useCustomer } from "@/lib/client/useCustomer";
 import { useState } from "react";
 import styles from "./SizeSelector.module.css";
 
@@ -14,6 +15,8 @@ export default function SizeSelector({
     productName,
 }: SizeSelectorProps) {
     const [selectedSize, setSelectedSize] = useState("M"); // Default size
+
+    const {refresh} = useCustomer();
 
     const handleSizeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         setSelectedSize(e.target.value);
@@ -34,6 +37,7 @@ export default function SizeSelector({
             });
             if (res.ok) {
                 //alert(`Added ${productName} (Size: ${selectedSize}) to your basket.`);
+                refresh()
             } else {
                 alert("Failed to add to basket.");
             }
