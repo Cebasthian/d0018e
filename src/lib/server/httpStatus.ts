@@ -26,4 +26,4 @@ export const InternalError = Error(500, "Internal error")
 /**
  * Status 200 OK
  */
-export const SuccessResponse = () => NextResponse.json({success: true})
+export const SuccessResponse = (json?: unknown) => NextResponse.json({success: true, data: json})

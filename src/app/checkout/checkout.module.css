@@ -1,0 +1,153 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-top: 100px;
+    gap: 50px;
+}
+
+.details {
+    /* width: 400px; */
+    display: flex;
+    flex-direction: column;
+}
+
+.shipping {
+    display: flex;
+    flex-direction: column;
+
+    & label {
+        display: flex;
+        flex-direction: column;
+        margin-top: 20px;
+
+        & > input {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid rgba(0,0,0,0.5);
+        }
+    }
+
+    & > div {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+}
+
+.divider {
+    width: 50px;
+}
+
+.place-order {
+    margin-top: 20px;
+    align-self: flex-end;
+    
+    background-color: #1877f2;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.place-order:hover {
+    background-color: #166fe5;
+}
+
+.place-order:disabled {
+    background: grey;
+}
+
+.place-order.success {
+    background: green;
+}
+
+.error {
+    color: red;
+    font-weight: bold;
+}
+
+
+
+.cart {
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+}
+
+.cart-basket {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.cart-basket-item {
+    display: flex;
+    flex-direction: row;
+    height: 70px;
+    align-items: center;
+    margin: 15px;
+    gap: 15px;
+    border-bottom: 1px solid black;
+    padding-bottom: 15px;
+}
+
+.cart-basket-image {
+    height: 100%;
+    width: auto;
+}
+
+.cart-basket-text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.cart-basket-price {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-between;
+}
+
+.cart-basket-remove {
+    background: transparent;
+    color: rgb(243, 11, 11);
+    border: 1px solid transparent;
+    padding: 2px;
+    border-radius: 6px;
+    width: 30px;
+    align-self: flex-end;
+    height: 30px;
+    cursor: pointer;
+    transition: border 0.2s ease;
+}
+
+.cart-basket-remove:hover:not(:disabled) {
+    color: rgb(201, 28, 28);
+    border-color: rgb(201, 28, 28);
+}
+
+.cart-basket-remove:disabled {
+    color: grey;
+}
+
+
+.cart-total {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    & > span {
+        font-size: large;
+    }
+
+    & > b {
+        font-size: larger;
+    }
+}

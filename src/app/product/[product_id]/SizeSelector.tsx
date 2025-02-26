@@ -1,5 +1,6 @@
 "use client";
 
+import { useCustomer } from "@/lib/client/useCustomer";
 import { useState } from "react";
 import { useCustomer } from "../../../lib/client/useCustomer";
 import styles from "./SizeSelector.module.css";
@@ -37,6 +38,8 @@ export default function SizeSelector({
                 }),
             });
             if (res.ok) {
+                //alert(`Added ${productName} (Size: ${selectedSize}) to your basket.`);
+                refresh()
             } else {
                 alert("Failed to add to basket.");
             }
