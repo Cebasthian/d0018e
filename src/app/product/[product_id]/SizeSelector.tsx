@@ -1,22 +1,24 @@
-// src/components/SizeSelector.tsx
 "use client";
 
 import { useCustomer } from "@/lib/client/useCustomer";
 import { useState } from "react";
+import { useCustomer } from "../../../lib/client/useCustomer";
 import styles from "./SizeSelector.module.css";
 
 interface SizeSelectorProps {
     productId: string;
     productName: string;
+    productPrice: number;
 }
 
 export default function SizeSelector({
     productId,
     productName,
+    productPrice,
 }: SizeSelectorProps) {
     const [selectedSize, setSelectedSize] = useState("M"); // Default size
 
-    const {refresh} = useCustomer();
+    const { refresh } = useCustomer();
 
     const handleSizeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         setSelectedSize(e.target.value);
@@ -64,6 +66,7 @@ export default function SizeSelector({
             <button className={styles.addButton} onClick={handleAddToBasket}>
                 Add to Basket
             </button>
+            <p>Price: {productPrice} kr</p>
         </div>
     );
 }

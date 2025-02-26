@@ -32,4 +32,9 @@
   .addButton:hover {
     background-color: #166fe5;
   }
+
+  .sizeSelectorContainer p {
+    margin-top: auto;
+    margin-bottom: auto;
+  }
   
