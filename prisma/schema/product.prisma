@@ -14,6 +14,7 @@ model Product {
     images       Image[]
     reviews      Review[]
     basket_items BasketItem[]
+    order_items  OrderItem[]
 }
 
 model Stock {

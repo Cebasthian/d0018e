@@ -10,6 +10,7 @@ model Customer {
     basket_items BasketItem[] // note: this field does not exist in the database
     reviews      Review[]
     sessions     CustomerSession[]
+    orders       Order[]
 }
 
 model BasketItem {

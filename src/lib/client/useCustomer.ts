@@ -33,15 +33,15 @@ class HttpError extends Error {
 
 export function useCustomer(fallback?: undefined): {
     customer: CustomerFromSessionType | undefined,
-    refresh: () => void
+    refresh: () => Promise<void>
 };
 export function useCustomer(fallback: CustomerFromSessionType): {
     customer: CustomerFromSessionType,
-    refresh: () => void
+    refresh: () => Promise<void>
 };
 export function useCustomer(fallback: CustomerFromSessionType|null): {
     customer: CustomerFromSessionType|null,
-    refresh: () => void
+    refresh: () => Promise<void>
 }
 
 export function useCustomer(fallback?: CustomerFromSessionType|null) {
@@ -54,8 +54,8 @@ export function useCustomer(fallback?: CustomerFromSessionType|null) {
     //         setCustomer(data)
     // }, [data])
 
-    const refresh = () => {
-        mutate()
+    const refresh = async () => {
+        await mutate()
     }
 
     return {customer: data || fallback, refresh}
