@@ -1,0 +1,113 @@
+/* src/components/ReviewSection.module.css */
+
+/* Container for the entire review section */
+.reviewSection {
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid #eaeaea;
+}
+
+/* Review Form styles */
+.reviewForm {
+    display: flex;
+    max-width: 700px;
+    margin-right: auto;
+    margin-left: auto;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+    border: 1px solid #eaeaea;
+    border-radius: 4px;
+    margin-bottom: 2rem;
+}
+
+.reviewForm h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: #333;
+}
+
+.rating {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.rating span {
+    font-weight: bold;
+    margin-right: 0.5rem;
+}
+
+.rating label {
+    cursor: pointer;
+}
+
+.comment,
+.customer {
+    display: flex;
+    flex-direction: column;
+}
+
+.comment label,
+.customer label {
+    font-size: 1rem;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.comment textarea,
+.customer input {
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+}
+
+.reviewSection button {
+    background-color: #0070f3;
+    color: white;
+    padding: 0.75rem 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.reviewSection button:hover {
+    background-color: #005bb5;
+}
+
+.error {
+    color: red;
+    font-size: 0.9rem;
+}
+
+.success {
+    color: green;
+    font-size: 0.9rem;
+}
+
+/* Review List styles */
+.reviewList h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+.reviewItem {
+    padding: 1rem 0;
+    border-bottom: 1px solid #eaeaea;
+}
+
+.reviewItem p {
+    margin: 0.5rem 0;
+    color: #555;
+}
+
+.reviewList {
+    max-width: 700px;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 2%;
+}
