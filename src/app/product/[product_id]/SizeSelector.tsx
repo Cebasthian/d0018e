@@ -2,7 +2,6 @@
 
 import { useCustomer } from "@/lib/client/useCustomer";
 import { useState } from "react";
-import { useCustomer } from "../../../lib/client/useCustomer";
 import styles from "./SizeSelector.module.css";
 
 interface SizeSelectorProps {
