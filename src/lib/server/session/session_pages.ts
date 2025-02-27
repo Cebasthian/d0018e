@@ -45,15 +45,31 @@ export async function enforceAdminSession() {
 
     if(!session_token || !session_token.value) {
         // Session token missing or invalid
-        redirect("/login")
+        redirect("/admin/login")
     }
     
     const session = await GetAdminSessionByToken(session_token.value)
     if(!session) {
         // Session not found or expired
-        redirect("/login")
+        redirect("/admin/login")
     }     
 
     return session.administrator;
 }
 
+export async function tryAdminSession() {
+    const session_token = await getAdminSessionCookie();
+
+    if(!session_token || !session_token.value) {
+        // Session token missing or invalid
+        return null;
+    }
+    
+    const session = await GetAdminSessionByToken(session_token.value)
+    if(!session) {
+        // Session not found or expired
+        return null;
+    }     
+
+    return session.administrator;
+}

@@ -1,0 +1,90 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw;
+    justify-content: center;
+    padding: "2rem";
+    padding-top: 5%;
+}
+
+.loginForm {
+    width: 700px;
+    margin: 0 auto;
+    padding: 50px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.inputField {
+    width: 100%;
+    padding: 14px 16px;
+    margin-bottom: 1rem;
+    border: 1px solid #dddfe2;
+    border-radius: 6px;
+    font-size: 25px;
+}
+
+.inputField:focus {
+    border-color: #1877f2;
+    box-shadow: 0 0 0 2px #e7f3ff;
+    outline: none;
+}
+
+
+.loginButton {
+    width: 100%;
+    padding: 14px 16px;
+    background-color: #1877f2;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.loginButton:hover {
+    background-color: #166fe5;
+}
+
+.toggleContainer {
+    max-width: fit-content;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.toggleCheckbox {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.toggleLabel {
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+.loginError {
+    color: red;
+    margin-top: "8px";
+    margin-bottom: "8px";
+}
+
+.no-account {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0 0 0;
+
+    & a {
+        text-decoration: none;
+        color: var(--link-color);
+    }
+}

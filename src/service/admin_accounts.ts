@@ -41,3 +41,13 @@ export async function DeleteAdminAccount(ssn: string) {
         },
     });
 }
+
+
+export async function GetAdminByCredentials(ssn: string, hashed_password: string) {
+    return prisma.administrator.findUnique({
+        where: {
+            ssn: ssn,
+            password: hashed_password
+        }
+    })
+}
