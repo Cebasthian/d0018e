@@ -18,3 +18,7 @@ export function CreateExpirationDate(daysInFuture: number) {
 export function Today() {
     return dayjs().toDate()
 }
+
+export function DateString(date: Date) {
+    return dayjs(date).format("YYYY-MM-DD HH:mm")
+}

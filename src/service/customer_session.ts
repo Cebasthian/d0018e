@@ -43,6 +43,9 @@ export async function GetCustomerSessionByToken(session_token: string) {
                                     Product: true
                                 }
                             }
+                        },
+                        orderBy: {
+                            created_at: "desc"
                         }
                     }
                 }
