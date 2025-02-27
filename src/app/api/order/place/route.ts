@@ -8,6 +8,10 @@ import { placeOrder } from "@/service/order";
  * Uses session management.
  */
 export const POST = withCustomerSession(async (req, customer) => {
+    if(customer.basket_items.length <= 0) {
+        return BadRequest("Cannot place an order with zero items.");
+    }
+    
     const body = await req.json();
 
     const { address, city, postalCode } = body;
