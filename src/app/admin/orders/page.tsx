@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 type Order = {
@@ -72,7 +73,9 @@ const Orders_page = () => {
     if (loading) return <div>Loading orders...</div>;
     if (error) return <div>Error: {error}</div>;
 
-    return (
+    return (  
+        <>
+        <Link href="/admin/product">Product dashboard</Link>
         <div>
             <h1>Admin Orders</h1>
             <ul style={{ listStyle: "none", padding: 0 }}>
@@ -131,6 +134,7 @@ const Orders_page = () => {
                 ))}
             </ul>
         </div>
+        </>
     );
 };
 

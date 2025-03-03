@@ -1,7 +1,7 @@
-import { SuccessResponse } from "@/lib/server/httpStatus";
 import { deleteAdminSessionCookie } from "@/lib/server/session/cookieStore";
+import { NextResponse } from "next/server";
 
-export async function GET() {
+export async function GET(request: Request) {
     await deleteAdminSessionCookie();
-    return SuccessResponse();
+    return NextResponse.redirect(new URL('/admin/login', request.url));
 }
