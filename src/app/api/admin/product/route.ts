@@ -9,7 +9,7 @@ import { NextRequest, NextResponse } from "next/server";
  * Create a new product
  */
 export async function POST(req: NextRequest) {
-    const body: Prisma.ProductCreateInput & { imageUrl: string } = await req.json();
+    const body: Prisma.ProductCreateInput & { images: string[] } = await req.json();
 
     const {
         name,
@@ -32,7 +32,13 @@ export async function POST(req: NextRequest) {
         description,
         tag,
         available,
-        images
+        images: {
+            createMany: {
+                data: images.map(e => ({
+                    url: e
+                }))
+            }
+        }
     })
     
 
