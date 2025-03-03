@@ -1,7 +1,25 @@
 import { BadRequest, SuccessResponse } from "@/lib/server/httpStatus";
+import { prisma } from "@/lib/server/prisma";
 import { withCustomerSession } from "@/lib/server/session/session_routes";
 import { clearBasket } from "@/service/basket";
 import { placeOrder } from "@/service/order";
+
+// GET all orders for order management page.
+export const GET = async (req: Request) => {
+    try {
+      const orders = await prisma.order.findMany({
+        orderBy: { processed: 'asc' }, // unprocessed orders come first
+        include: {
+          customer: true,
+          order_items: true,
+        },
+      });
+      return SuccessResponse(orders);
+    } catch (error) {
+      console.error("Error retrieving orders", error);
+      return BadRequest("Error retrieving orders");
+    }
+  };
 
 /**
  * Place a new order on the items in your basket.

@@ -23,10 +23,11 @@ export default async function ProductPage({
                 <h1>{product.name}</h1>
                 <h2>Product id: {product.product_id}</h2>
                 <Image
-                    src={product.images[0].url}
+                    className={styles.product_image}
+                    src={product.images[0]?.url}
                     width={500}
                     height={500}
-                    alt="temp"
+                    alt="image of product"
                 />
 
                 <SizeSelector
@@ -41,6 +42,8 @@ export default async function ProductPage({
             </div>
 
             <ReviewSection product_id={product_id} />
+
+            {/*<pre>{JSON.stringify(product, null, 4)}</pre>*/}
 
             <Footer />
         </>

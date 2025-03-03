@@ -22,6 +22,10 @@ export const Product = ({
             <span><b>{product.price}</b> SEK</span>
             <span>{product.tag}</span>
             <span>{product.available ? "Public" : "Hidden"}</span>
+            <span>Stock XS: {product.stock?.XS}</span>
+            <span>Stock S: {product.stock?.S}</span>
+            <span>Stock M: {product.stock?.M}</span>
+            <span>Stock L: {product.stock?.L}</span>
             <span>Stock XL: {product.stock?.XL}</span>
         </div>
         </Link>

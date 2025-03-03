@@ -19,7 +19,7 @@ export default function AdminLoginPageClient() {
         });
         const json = await res.json();
         if (json && json.success) {
-            router.push("/admin");
+            router.push("/admin/product");
         } else if (res.status === 400) {
             // added for invalid credentail error message.
             setSsn("");

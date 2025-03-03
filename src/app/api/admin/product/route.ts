@@ -9,27 +9,33 @@ import { NextRequest, NextResponse } from "next/server";
  * Create a new product
  */
 export async function POST(req: NextRequest) {
-    const body: Prisma.ProductCreateInput = await req.json();
+    const body: Prisma.ProductCreateInput & { imageUrl: string } = await req.json();
 
     const {
         name,
         price,
         description,
         tag,
-        available
+        available,
+        images
     } = body
 
     if(!name || !price) {
         return BadRequest("Invalid field name or price")
     }
 
+    
+
     const product = await CreateProduct({
         name,
         price,
         description,
         tag,
-        available
+        available,
+        images
     })
+    
+
     return NextResponse.json(product)
 }
 
