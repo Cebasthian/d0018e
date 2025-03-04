@@ -2,6 +2,9 @@ import { CreateProduct } from "@/service/product";
 import { Prisma } from "@prisma/client";
 import { NextResponse } from "next/server";
 
+/**
+ * Populates database with mockup products
+ */
 export async function GET() {
 
     // await prisma.product.createMany({

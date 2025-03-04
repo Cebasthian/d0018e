@@ -5,6 +5,9 @@ import { clearBasket } from "@/service/basket";
 import { placeOrder } from "@/service/order";
 
 // GET all orders for order management page.
+/**
+ * Get all orders
+ */
 export const GET = async (req: Request) => {
     try {
       const orders = await prisma.order.findMany({

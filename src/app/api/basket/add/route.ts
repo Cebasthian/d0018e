@@ -3,6 +3,9 @@ import { withCustomerSession } from "@/lib/server/session/session_routes";
 import { Today } from "@/lib/util/dayjs";
 import { addToBasket } from "@/service/basket";
 
+/**
+ * Add to basket
+ */
 export const POST = withCustomerSession(async (req, customer) => {
     const body = await req.json();
 

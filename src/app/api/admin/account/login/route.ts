@@ -5,6 +5,9 @@ import { GetAdminByCredentials } from "@/service/admin_accounts";
 import { CreateAdminSession } from "@/service/admin_session";
 import { NextRequest } from "next/server";
 
+/**
+ * Log in to admin account
+ */
 export async function POST(req: NextRequest) {
     const body = await req.json()
     const {

@@ -3,6 +3,9 @@ import { prisma } from "@/lib/server/prisma";
 import { withCustomerSession } from "@/lib/server/session/session_routes";
 import { NextResponse } from "next/server";
 
+/**
+ * Gets all reviews from a product id
+ */
 export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
     const product_id = searchParams.get("product_id");
@@ -40,6 +43,9 @@ export async function GET(request: Request) {
     }
 }
 
+/**
+ * Creates a new review
+ */
 export const POST = withCustomerSession(async (req, customer) => {
     const { product_id, rating, comment } = await req.json();
 

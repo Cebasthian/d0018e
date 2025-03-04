@@ -22,8 +22,99 @@
   },
   "paths": {
     "/account": {
+      "get": {
+        "operationId": "get-account",
+        "summary": "Get logged in account",
+        "description": "",
+        "tags": [
+          "Account"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/account/delete": {
+      "delete": {
+        "operationId": "delete-account-delete",
+        "summary": "Delete account",
+        "description": "",
+        "tags": [
+          "Account"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/account/login": {
       "post": {
-        "operationId": "post-account",
+        "operationId": "post-account-login",
+        "summary": "Login to an account",
+        "description": "",
+        "tags": [
+          "Account"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {}
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/account/logout": {
+      "get": {
+        "operationId": "get-account-logout",
+        "summary": "Logout",
+        "description": "",
+        "tags": [
+          "Account"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/account/signup": {
+      "post": {
+        "operationId": "post-account-signup",
         "summary": "Create account\r",
         "description": "Creates a new customer account. Returns the newly created account",
         "tags": [
@@ -75,97 +166,12 @@
             }
           }
         }
-      },
-      "get": {
-        "operationId": "get-account",
-        "summary": "Get account\r",
-        "description": "TODO: Add session management",
-        "tags": [
-          "Account"
-        ],
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "Successful response",
-            "content": {
-              "application/json": {
-                "schema": {}
-              }
-            }
-          }
-        }
-      },
+      }
+    },
+    "/account/update": {
       "put": {
-        "operationId": "put-account",
-        "summary": "Update account\r",
-        "description": "TODO: Add session management",
-        "tags": [
-          "Account"
-        ],
-        "parameters": [],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {}
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful response",
-            "content": {
-              "application/json": {
-                "schema": {}
-              }
-            }
-          }
-        }
-      },
-      "delete": {
-        "operationId": "delete-account",
-        "summary": "Delete account\r",
-        "description": "TODO: Add session management",
-        "tags": [
-          "Account"
-        ],
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "Successful response",
-            "content": {
-              "application/json": {
-                "schema": {}
-              }
-            }
-          }
-        }
-      }
-    },
-    "/account/get": {
-      "get": {
-        "operationId": "get-account-get",
-        "summary": "",
-        "description": "",
-        "tags": [
-          "Account"
-        ],
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "Successful response",
-            "content": {
-              "application/json": {
-                "schema": {}
-              }
-            }
-          }
-        }
-      }
-    },
-    "/account/login": {
-      "post": {
-        "operationId": "post-account-login",
-        "summary": "Login to an account",
+        "operationId": "put-account-update",
+        "summary": "Update account",
         "description": "",
         "tags": [
           "Account"
@@ -178,27 +184,6 @@
             }
           }
         },
-        "responses": {
-          "200": {
-            "description": "Successful response",
-            "content": {
-              "application/json": {
-                "schema": {}
-              }
-            }
-          }
-        }
-      }
-    },
-    "/account/logout": {
-      "get": {
-        "operationId": "get-account-logout",
-        "summary": "",
-        "description": "",
-        "tags": [
-          "Account"
-        ],
-        "parameters": [],
         "responses": {
           "200": {
             "description": "Successful response",
@@ -357,6 +342,55 @@
         }
       }
     },
+    "/admin/account/login": {
+      "post": {
+        "operationId": "post-admin-account-login",
+        "summary": "Log in to admin account",
+        "description": "",
+        "tags": [
+          "Admin"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {}
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/account/logout": {
+      "get": {
+        "operationId": "get-admin-account-logout",
+        "summary": "Log out from admin account",
+        "description": "",
+        "tags": [
+          "Admin"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
     "/admin/product/[id]": {
       "delete": {
         "operationId": "delete-admin-product-[id]",
@@ -381,7 +415,7 @@
     "/basket/add": {
       "post": {
         "operationId": "post-basket-add",
-        "summary": "",
+        "summary": "Add to basket",
         "description": "",
         "tags": [
           "Basket"
@@ -409,12 +443,115 @@
     "/basket/remove": {
       "delete": {
         "operationId": "delete-basket-remove",
-        "summary": "",
+        "summary": "Remove from basket",
         "description": "",
         "tags": [
           "Basket"
         ],
         "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/order/place": {
+      "get": {
+        "operationId": "get-order-place",
+        "summary": "GET all orders for order management page.",
+        "description": "",
+        "tags": [
+          "Order"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "post-order-place",
+        "summary": "Place a new order on the items in your basket.\r",
+        "description": "",
+        "tags": [
+          "Order"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {}
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/order/place/[orderId]/process": {
+      "put": {
+        "operationId": "put-order-place-[orderId]-process",
+        "summary": "Mark order as processed",
+        "description": "",
+        "tags": [
+          "Order"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {}
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/order/place/[orderId]/revert": {
+      "put": {
+        "operationId": "put-order-place-[orderId]-revert",
+        "summary": "Revert state of processed order.",
+        "description": "",
+        "tags": [
+          "Order"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {}
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "Successful response",
@@ -469,10 +606,57 @@
         }
       }
     },
+    "/review": {
+      "get": {
+        "operationId": "get-review",
+        "summary": "Gets all reviews from a product id",
+        "description": "",
+        "tags": [
+          "Review"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "post-review",
+        "summary": "Creates a new review",
+        "description": "",
+        "tags": [
+          "Review"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {}
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
     "/test": {
       "get": {
         "operationId": "get-test",
-        "summary": "",
+        "summary": "Populates database with mockup products",
         "description": "",
         "tags": [
           "Test"

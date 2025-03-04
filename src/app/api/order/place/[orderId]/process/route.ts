@@ -1,6 +1,9 @@
 import { prisma } from "@/lib/server/prisma";
 import { NextResponse } from "next/server";
 
+/**
+ * Mark order as processed
+ */
 export async function PUT(
     request: Request,
     { params }: { params: Promise<{ orderId: string }> }
