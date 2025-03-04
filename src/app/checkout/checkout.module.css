@@ -59,6 +59,7 @@
 
 .place-order:disabled {
     background: grey;
+    cursor: unset;
 }
 
 .place-order.success {
@@ -150,4 +151,8 @@
     & > b {
         font-size: larger;
     }
+}
+
+.empty-basket {
+    margin: 15px 0;
 }
