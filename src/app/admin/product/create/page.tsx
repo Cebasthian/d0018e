@@ -1,8 +1,12 @@
+import { enforceAdminSession } from "@/lib/server/session/session_pages";
 import Link from "next/link";
 import styles from "./admin-product-create.module.css";
 import CreateProductForm from "./CreateProductForm";
 
-export default function AdminProductCreatePage() {
+export default async function AdminProductCreatePage() {
+
+    await enforceAdminSession();
+
     return(
         <>
         <Link href="/admin/product">Back to all products</Link>
