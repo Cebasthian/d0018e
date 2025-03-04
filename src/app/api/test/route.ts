@@ -1,69 +1,36 @@
+import { InternalError } from "@/lib/server/httpStatus";
 import { CreateProduct } from "@/service/product";
 import { Prisma } from "@prisma/client";
+import fs from "fs/promises";
 import { NextResponse } from "next/server";
+import path from "path";
 
 export async function GET() {
 
-    // await prisma.product.createMany({
-    //     data: products
-    // })
+    const p = path.join(process.cwd(), "products.csv")
+    if(!(await fs.stat(p)).isFile()) return InternalError("File not found")
 
-    const products: Prisma.ProductCreateInput[] = [
-        {
-            name: "T-Shirt 1",
-            description: "Shirt description",
-            tag: "tag1",
-            price: Math.floor(Math.random() * 900) + 100,
-            available: true,
-            images: {
-                createMany: {
-                    data: [{
-                        url: "/images/red.jpg"
-                    }]
-                }
-            }
-        },{
-            name: "T-Shirt 2",
-            description: "Shirt description",
-            tag: "tag1",
-            price: Math.floor(Math.random() * 900) + 100,
-            available: true,
-            images: {
-                createMany: {
-                    data: [{
-                        url: "/images/black.jpg"
-                    }]
-                }
-            }
-        },{
-            name: "T-Shirt 3",
-            description: "Shirt description",
-            tag: "tag2",
-            price: Math.floor(Math.random() * 900) + 100,
-            available: true,
-            images: {
-                createMany: {
-                    data: [{
-                        url: "/images/yellow.jpg"
-                    }]
-                }
-            }
-        },{
-            name: "T-Shirt 4",
-            description: "Shirt description",
-            tag: "tag3",
-            price: Math.floor(Math.random() * 900) + 100,
-            available: true,
-            images: {
-                createMany: {
-                    data: [{
-                        url: "/images/blue.jpg"
-                    }]
-                }
-            }
-        },
-    ]
+    const buffer = await fs.readFile(path.join(process.cwd(), "products.csv"))
+    const csv = buffer.toString();
 
+    const rows = csv.split("\n")
+    // const metadata = rows.splice(0, 1)[0].split(";").map(e => e.trim());
+    rows.splice(0,1)
+    const products: Prisma.ProductCreateInput[] = rows.filter(e => (e.trim() !== "" && e[0] !== "#")).map(r => {
+        const [name, description, tag, price, available, image] = r.split(";")
+        return {
+            name: name.trim(),
+            description: description.trim(),
+            tag: tag.trim(),
+            price: parseFloat(price.trim()),
+            available: available.trim() === "true",
+            images: {
+                create: {
+                    url: image.trim()
+                }
+            }
+        }
+    })
 
     for(let i = 0; i < products.length; i++) {
         await CreateProduct(products[i])

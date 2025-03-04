@@ -1,0 +1,27 @@
+Name;                       Description;                        Tag;        Price;  Available;  ImageURL
+Classic Black Tee;          A normal t-shirt;                   classic;    1200;   true;       /images/black.png
+Pure Cotton Crew;           A cotton round-neck t-shirt;        classic;    1100;   true;       /images/white.png
+Fitted Crew Essential;      A fitted crew-neck t-shirt;         classic;    1250;   true;       /images/red.png
+Heavy Cotton Heritage Tee;  A heavy-weight cotton t-shirt;      classic;    2100;   false;      /images/yellow.png
+Casual Everyday Tee;        A comfortable everyday t-shirt;     classic;    1000;   true;       /images/pink.png
+
+Urban V-Neck;               A stylish v-neck t-shirt;           vneck;      1500;   true;       /images/v-neck.png
+
+Retro Graphic Tee;          A graphic printed t-shirt;          graphic;    1800;   true;       /images/graphic.png
+Oversized Streetwear Tee;   A bold graphic oversized t-shirt;   graphic;    1900;   true;       /images/graphic.png
+Vintage Band Logo Tee;      A classic band-logo t-shirt;        graphic;    1850;   false;      /images/graphic.png
+
+Essential Long-Sleeve;      A long-sleeve t-shirt;              longsleeve; 1700;   false;      /images/long-sleeve.png
+
+Athletic Performance Tee;   A breathable sports t-shirt;        sports;     2000;   true;       /images/sports.png
+Dri-Fit Training Tee;       A performance dri-fit t-shirt;      sports;     2300;   true;       /images/sports.png
+
+Soft Touch Pastel Tee;      A soft-touch pastel t-shirt;        pastel;     1300;   true;       /images/pastel.png
+
+#   Rugged Vintage Wash Tee;    A rugged vintage washed t-shirt;    vintage;    1950;   true;       /images/brown.png
+#   Striped Summer Tee;         A casual striped t-shirt;           striped;    1400;   true;       /images/yellow.png
+#   Premium Polo Shirt;         A premium quality polo t-shirt;     polo;       2200;   false;      /images/navy.png
+#   Tie-Dye Festival Tee;       A tie-dye unisex t-shirt;           tiedye;     1600;   true;       /images/multicolor.png
+#   Slim-Fit Flex Tee;          A slim-fit stretch t-shirt;         slimfit;    1550;   true;       /images/lightblue.png
+#   Loose-Fit Beach Tee;        A loose-fit summer t-shirt;         summer;     1350;   true;       /images/coral.png
+#   Reversible Dual-Tone Tee;   A reversible two-tone t-shirt;      reversible; 1750;   true;       /images/dual.png
