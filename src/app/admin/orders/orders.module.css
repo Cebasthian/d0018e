@@ -1,0 +1,77 @@
+.container {
+    padding: 2rem;
+    background-color: #f5f5f5;
+}
+
+.title {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.ordersList {
+    list-style: none;
+    padding: 0;
+}
+
+.orderItem {
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 4px;
+}
+
+.orderItem p {
+    margin: 0.5rem 0;
+}
+
+.orderItem button {
+    margin-top: 10px;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    background-color: #0070f3;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.orderItem button:hover {
+    background-color: #005bb5;
+}
+
+.container Link {
+    color: #0070f3;
+    text-decoration: none;
+    margin-bottom: 1rem;
+    display: inline-block;
+}
+
+.container Link:hover {
+    text-decoration: underline;
+}
+
+.orderedItems {
+    border: 1px dashed #0070f3;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 4px;
+    background-color: #e6f7ff;
+}
+
+.orderedItemDetail {
+    padding: 8px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.orderedItemDetail:last-child {
+    border-bottom: none;
+}
+
+.orderTotal {
+    margin-top: 10px;
+    font-weight: bold;
+    text-align: right;
+}
