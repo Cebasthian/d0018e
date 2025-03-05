@@ -75,13 +75,13 @@ export default function CreateProductForm() {
                         if (e.currentTarget.files?.[0]) {
                             const img = e.currentTarget.files[0];
                             setImage(img);
-                            const fr = new FileReader();
-                            fr.readAsArrayBuffer(img);
-                            // const stream = img.stream()
-                            // fr.readAsDataURL(img);
-                            fr.onload = (e) => {
-                                // setImage(fr.result as ArrayBuffer)
-                            };
+                            // const fr = new FileReader();
+                            // fr.readAsArrayBuffer(img);
+                            // // const stream = img.stream()
+                            // // fr.readAsDataURL(img);
+                            // fr.onload = () => {
+                            //     // setImage(fr.result as ArrayBuffer)
+                            // };
                         }
                     }}
                 />

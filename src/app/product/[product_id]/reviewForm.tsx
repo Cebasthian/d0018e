@@ -20,7 +20,7 @@ export default function ReviewForm({
     const [hasReviewed, setHasReviewed] = useState(false);
     const [isCheckingReview, setIsCheckingReview] = useState(true);
 
-    const { customer, refresh } = useCustomer();
+    const { customer } = useCustomer();
 
     useEffect(() => {
         if (!product_id) {
@@ -81,7 +81,7 @@ export default function ReviewForm({
             } else {
                 setError(data.error || "Submission failed");
             }
-        } catch (error) {
+        } catch {
             setError("Network error. Please try again.");
         }
     };
@@ -105,7 +105,7 @@ export default function ReviewForm({
     if (hasReviewed) {
         return (
             <div className={styles.reviewForm}>
-                <p className={styles.info}>You're review has been submited!</p>
+                <p className={styles.info}>Your review has been submited!</p>
             </div>
         );
     }

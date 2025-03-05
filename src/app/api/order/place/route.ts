@@ -8,7 +8,7 @@ import { PlaceOrderAndDecrementStock } from "@/service/order";
 /**
  * Get all orders
  */
-export const GET = async (req: Request) => {
+export const GET = async () => {
     try {
         const orders = await prisma.order.findMany({
             orderBy: { processed: "asc" }, // unprocessed orders come first

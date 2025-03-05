@@ -40,7 +40,7 @@ const Orders_page = () => {
             } else {
                 setError(data.error || "Failed to load orders");
             }
-        } catch (err) {
+        } catch {
             setError("Failed to load orders");
         }
         setLoading(false);
@@ -61,7 +61,7 @@ const Orders_page = () => {
             } else {
                 alert(data.error || "Something went wrong");
             }
-        } catch (error) {
+        } catch {
             alert("Failed to process order");
         }
     };
@@ -77,7 +77,7 @@ const Orders_page = () => {
             } else {
                 alert(data.error || "Something went wrong");
             }
-        } catch (error) {
+        } catch {
             alert("Failed to revert order status");
         }
     };

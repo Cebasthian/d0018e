@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import ReviewForm from "./reviewForm";
 import styles from "./ReviewForm.module.css";
 
@@ -22,7 +22,7 @@ export default function ReviewSection({ product_id }: ReviewSectionProps) {
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState("");
 
-    const fetchReviews = async () => {
+    const fetchReviews = useCallback(async () => {
         try {
             setIsLoading(true);
             setError("");
@@ -40,11 +40,11 @@ export default function ReviewSection({ product_id }: ReviewSectionProps) {
         } finally {
             setIsLoading(false);
         }
-    };
+    }, [product_id]);
 
     useEffect(() => {
         fetchReviews();
-    }, [product_id]);
+    }, [fetchReviews]);
 
     return (
         <div className={styles.reviewSection}>

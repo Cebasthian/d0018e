@@ -25,7 +25,7 @@ export default function AdminCRUD() {
     // Update form state
     const [updateUsername, setUpdateUsername] = useState("");
     const [updateEmail, setUpdateEmail] = useState("");
-    const [updatePassword, setUpdatePassword] = useState("");
+    const [updatePassword] = useState("");
 
     // Base URL for API endpoints
     const baseUrl = "http://localhost:3000/api/admin/account";

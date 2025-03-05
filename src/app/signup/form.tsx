@@ -151,7 +151,7 @@ const FormInput = ({ children, name, password, error }: FormInputProps) => {
                         error && touched ? styles.errorBorder : ""
                     }`}
                     onBlur={(e) => setTouched(!e.target.value)}
-                    onChange={(e) => setTouched(false)}
+                    onChange={() => setTouched(false)}
                 />
             </label>
         </>

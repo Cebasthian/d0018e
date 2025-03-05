@@ -17,7 +17,7 @@ export default function EditProduct({ product: p }: { product: FullProduct }) {
         },
     });
     const router = useRouter();
-    const sizes = ["XS", "S", "M", "L", "XL"];
+    const sizes: (keyof typeof product.stock)[] = ["XS", "S", "M", "L", "XL"];
 
     return (
         <>
