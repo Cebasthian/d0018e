@@ -4,7 +4,6 @@ import AdminLoginPageClient from "./client";
 
 export default async function AdminLoginPage() {
     const admin = await tryAdminSession()
-    console.log(admin)
     if(admin !== null) {
         redirect("/admin/product")
     }
