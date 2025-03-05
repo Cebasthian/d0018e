@@ -1,10 +1,13 @@
-import { BadRequest, SuccessResponse } from "@/lib/server/httpStatus";
+import { BadRequest, HttpError, SuccessResponse } from "@/lib/server/httpStatus";
 import { prisma } from "@/lib/server/prisma";
 import { withCustomerSession } from "@/lib/server/session/session_routes";
 import { clearBasket } from "@/service/basket";
-import { placeOrder } from "@/service/order";
+import { PlaceOrderAndDecrementStock } from "@/service/order";
 
 // GET all orders for order management page.
+/**
+ * Get all orders
+ */
 export const GET = async (req: Request) => {
     try {
         const orders = await prisma.order.findMany({
@@ -41,12 +44,29 @@ export const POST = withCustomerSession(async (req, customer) => {
     if (!isString(address) || !isString(city) || !isString(postalCode)) {
         return BadRequest("Invalid shipping details.");
     }
+    const empties = customer.basket_items.filter(item => {
+        if(item.product.stock === null) return true;
+        const value = item.product.stock[item.size as keyof typeof item.product.stock]
+        if(value <= 0) return true;
+        return false;
+    })
 
-    const order = await placeOrder({ address, city, postalCode }, customer);
+    if(empties.length > 0) {
+        return HttpError(500, "Unfortunately some item(s) are out of stock.", "ITEMS_OUT_OF_STOCK_ERROR")()
+    }
 
-    await clearBasket(customer.ssn);
+    // const order = await PlaceOrder({address, city, postalCode}, customer)
+    // await UpdateStockFromBasket(customer);
 
-    return SuccessResponse(order);
+    try {
+
+        const order = await PlaceOrderAndDecrementStock({address, city, postalCode}, customer)
+        await clearBasket(customer.ssn);
+        return SuccessResponse(order);
+    } catch {
+        return HttpError(500, "Unfortunately some stock is too low for some items.", "ITEMS_NOT_ENOUGH_STOCK_ERROR")()
+    }
+    
 });
 
 function isString(str: unknown) {

@@ -5,5 +5,6 @@ export type DeepPartial<T> = T extends object ? {
 export type HttpErrorMessage = {
     message: string,
     status: number,
-    error: unknown
+    error: unknown,
+    errorCode: string,
 }

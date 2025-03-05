@@ -10,7 +10,8 @@
     "prisma:push": "npx prisma db push",
     "prisma:gen": "npx prisma generate",
     "swagger": "npx next-openapi-gen generate",
-    "setup": "yarn && yarn prisma:push && yarn swagger"
+    "prisma:raw": "npx prisma db execute --file ./setup.sql --schema ./prisma/schema/schema.prisma",
+    "setup": "yarn & yarn prisma:push & yarn prisma:raw & yarn swagger"
   },
   "dependencies": {
     "@prisma/client": "^6.3.1",

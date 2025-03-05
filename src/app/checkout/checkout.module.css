@@ -59,6 +59,7 @@
 
 .place-order:disabled {
     background: grey;
+    cursor: unset;
 }
 
 .place-order.success {
@@ -105,6 +106,7 @@
     flex: 1;
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
 }
 
 .cart-basket-price {
@@ -136,7 +138,6 @@
     color: grey;
 }
 
-
 .cart-total {
     display: flex;
     flex-direction: row;
@@ -150,4 +151,12 @@
     & > b {
         font-size: larger;
     }
+}
+
+.empty-basket {
+    margin: 15px 0;
+}
+
+.cart-item-no-stock {
+    color: red;
 }

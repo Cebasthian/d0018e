@@ -2,6 +2,9 @@ import { BadRequest, InternalError, SuccessResponse } from "@/lib/server/httpSta
 import { withCustomerSession } from "@/lib/server/session/session_routes";
 import { removeFromBasket } from "@/service/basket";
 
+/**
+ * Remove from basket
+ */
 export const DELETE = withCustomerSession(async (req, customer) => {
     const body = await req.json();
 

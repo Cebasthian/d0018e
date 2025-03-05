@@ -1,6 +1,7 @@
 "use client";
 
 import { http } from "@/lib/client/httpRequester";
+import Link from "next/link";
 import { FormEvent, useState } from "react";
 import styles from "./signup.module.css";
 
@@ -84,6 +85,7 @@ export default function CreateAccountForm() {
     return (
         <div className={styles.container}>
             <div className={styles.card}>
+            <Link className={styles.home} href="/"><span>Home</span></Link>
                 <h2 className={styles.title}>Create Account</h2>
                 <form onSubmit={onSubmit} className={styles.form}>
                     <FormInput name="email" error={errors.email}>
@@ -114,8 +116,15 @@ export default function CreateAccountForm() {
                         disabled={disabledSubmit}
                         type="submit"
                         className={styles.submitButton}
+                        defaultValue="Sign up"
                     />
                 </form>
+                <div className={styles["no-account"]}>
+                    <span>
+                        {"Already have an account? "}
+                        <Link href="/login">Log in</Link>
+                    </span>
+                </div>
             </div>
         </div>
     );

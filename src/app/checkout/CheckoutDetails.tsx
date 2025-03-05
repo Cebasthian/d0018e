@@ -3,7 +3,8 @@ import { http } from "@/lib/client/httpRequester";
 import { useCustomer } from "@/lib/client/useCustomer";
 import { CustomerFromSessionType } from "@/lib/server/session/session_routes";
 import { delay } from "@/lib/util/lib";
-import { useCallback, useState } from "react";
+import { HttpErrorMessage } from "@/types";
+import { useCallback, useMemo, useState } from "react";
 import styles from "./checkout.module.css";
 
 export default function CheckoutDetails({customer: c}: {customer:CustomerFromSessionType}) {
@@ -21,8 +22,15 @@ export default function CheckoutDetails({customer: c}: {customer:CustomerFromSes
     const placeOrder = useCallback(async () => {
         if(loading || success) return;
 
+        setError("")
+
+        if(customer.basket_items.length === 0) {
+            setError("Can't place an order on zero items.")
+            return;
+        }
+
         if(!address || !city || !postalCode) {
-            setError("All fields are required")
+            setError("All fields are required.")
             return;
         }
 
@@ -40,15 +48,22 @@ export default function CheckoutDetails({customer: c}: {customer:CustomerFromSes
                 await delay(300)
                 setSuccess(true)
                 await refresh()
+            } else {
+                const error = await res.json() as HttpErrorMessage;
+                setError(error.message)
             }
         } catch {
-            setError("Invalid fields")
+            setError("Network error.")
         }
         
         
         setLoading(false)
 
-    }, [address, city, postalCode, loading, success, refresh])
+    }, [address, city, postalCode, loading, success, refresh, customer.basket_items.length])
+
+    const disabledButton = useMemo(() => {
+        return loading || customer.basket_items.length === 0 || (!address || !city || !postalCode)
+    }, [loading, customer.basket_items.length, address, city, postalCode])
 
     return(
         <>
@@ -72,7 +87,7 @@ export default function CheckoutDetails({customer: c}: {customer:CustomerFromSes
                     </label>
                 </div>
             </div>
-            <button onClick={placeOrder} disabled={loading} className={styles['place-order'] + (success ? " " + styles.success : "")}>{success ? "Order Placed!" : "Place Order"}</button>
+            <button onClick={placeOrder} disabled={disabledButton} className={styles['place-order'] + (success ? " " + styles.success : "")}>{success ? "Order Placed!" : "Place Order"}</button>
         </div>
         </>
     )

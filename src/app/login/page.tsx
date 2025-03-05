@@ -38,6 +38,7 @@ export default function LoginPage() {
     return (
         <div className={styles.container}>
             <div className={styles.loginForm}>
+                <Link className={styles.home} href="/"><span>Home</span></Link>
                 <h1>Social security number</h1>
                 <input
                     value={ssn}

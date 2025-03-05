@@ -12,5 +12,5 @@ model AdministratorSesssion {
     administrator_ssn String
     expiry_date       DateTime
     //
-    administrator     Administrator @relation(fields: [administrator_ssn], references: [ssn])
+    administrator     Administrator @relation(fields: [administrator_ssn], references: [ssn], onDelete: Cascade, onUpdate: Cascade)
 }

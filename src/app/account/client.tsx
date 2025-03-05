@@ -15,7 +15,7 @@ type Props = {
 };
 
 export default function AccountPageClient({ customer: c }: Props) {
-    const { customer, refresh } = useCustomer(c);
+    const { customer, refresh, clear } = useCustomer(c);
     const router = useRouter();
 
     const [details, setDetails] = useImmer({
@@ -59,14 +59,16 @@ export default function AccountPageClient({ customer: c }: Props) {
         if(!confirm("Are you sure you want to delete your account?")) return;
 
         const res = await http.delete("/api/account/delete", null)
-        if(res.status === 200) {
-            router.refresh();
+        if(res.ok) {
+            await clear();
+            router.push("/")
         }
     }
 
     const logout = async () => {
         const res = await http.get("/api/account/logout")
-        if(res.status === 200) {
+        if(res.ok) {
+            await clear();
             router.push("/")
         }
     }

@@ -1,26 +1,27 @@
 import { HttpErrorMessage } from "@/types";
 import { NextResponse } from "next/server";
 
-const Error = (status: number, message: string) => (error?: unknown) => new NextResponse<HttpErrorMessage>(JSON.stringify({
+export const HttpError = (status: number, message: string, errorCode: string) => (error?: unknown) => new NextResponse<HttpErrorMessage>(JSON.stringify({
     message,
     error,
-    status
+    status,
+    errorCode: errorCode
 }), {status}) 
 
 /**
  * Error 400 Bad request
  */
-export const BadRequest = Error(400, "Bad request")
+export const BadRequest = HttpError(400, "Bad request", "BAD_REQUEST")
 
 /**
  * Error 401 Unauthorized
  */
-export const Unauthorized = Error(401, "Unauthorized")
+export const Unauthorized = HttpError(401, "Unauthorized", "UNAUTHORIZED")
 
 /**
  * Error 500 Internal error
  */
-export const InternalError = Error(500, "Internal error")
+export const InternalError = HttpError(500, "Internal error", "INTERNAL_ERROR")
 
 
 /**

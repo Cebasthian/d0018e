@@ -16,7 +16,8 @@
     margin: 1rem auto;
     padding: 1rem;
     border-radius: 2px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    color: #444;
+    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); */
 }
 
 .product_container h1 {
@@ -36,7 +37,8 @@
 .product_image {
     border-radius: 8px;
     margin-bottom: 1.5rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); */ /* Tog bort detta då det blev lite mer clean då vi kör med transparanta bilder. */
+    /* filter: drop-shadow(2px 2px 2px #222); */ /* Har man denna så blir skuggan inte fyrkantig. */
     display: block;
     margin-left: auto;
     margin-right: auto;
@@ -46,6 +48,18 @@
     transform: translateY(-2px);
     transition: transform 0.2 ease-in-out;
 }
+
+.sizes {
+    display: flex;
+    flex-direction: column;
+}
+
+.size {
+    display: flex;
+    flex-direction: row;
+    gap: 4px;
+}
+
 
 /*Review part:*/
 .review {
@@ -112,3 +126,4 @@
     margin-top: 1px;
     /*idk*/
 }
+
