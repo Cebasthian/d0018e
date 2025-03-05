@@ -3,38 +3,52 @@
     margin-top: 20px;
     padding: 10px;
     border: 1px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); */ /* lite mer clean? */
 
     display: flex;
     align-items: center;
     gap: 10px;
-  }
-  
-  .sizeSelectorContainer label {
+}
+
+.sizeSelectorContainer label {
     font-weight: bold;
-  }
-  
-  .sizeSelectorContainer select {
+}
+
+.sizeSelectorContainer select {
     padding: 5px;
     border-radius: 4px;
     border: 1px solid #ccc;
-  }
-  
-  .addButton {
+}
+
+.addButton {
     background-color: #1877f2;
     color: white;
     border: none;
     padding: 8px 12px;
     border-radius: 4px;
     cursor: pointer;
-  }
-  
-  .addButton:hover {
-    background-color: #166fe5;
-  }
+    width: 140px;
+}
 
-  .sizeSelectorContainer p {
+.addButton:hover {
+    background-color: #166fe5;
+}
+
+.sizeSelectorContainer p {
     margin-top: auto;
     margin-bottom: auto;
-  }
-  
+}
+
+.addButton:disabled {
+    background: grey;
+    cursor: unset;
+}
+
+.addButton.success {
+    background: green;
+}
+
+.error {
+    color: red;
+    font-weight: bold;
+}

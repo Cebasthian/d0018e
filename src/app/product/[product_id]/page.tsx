@@ -16,6 +16,32 @@ export default async function ProductPage({
     const product = await GetProductById(product_id);
     if (product == null) return notFound();
 
+    const sizes = (() => {
+        const stock = product.stock;
+        if(!stock) return ""
+
+        // const keys: (keyof typeof stock)[] = Object.keys(stock)
+        // for(let i = 0; i < keys.length; i++) {
+        //     const val: string | number = stock[keys[i]]
+        // }
+        const arr: React.ReactNode[] = []
+
+        for(const key in stock) {
+            const val = stock[key as keyof typeof stock]
+            if(typeof val === "string") continue;
+            arr.push((
+                <div key={key} className={styles.size}>
+                    <span>{key}:</span>
+                    <b>{val}</b>
+                    <span>left</span>
+                </div>
+            ))
+        }
+
+
+        return arr;
+    })()
+
     return (
         <>
             <Top />
@@ -30,15 +56,17 @@ export default async function ProductPage({
                     alt="image of product"
                 />
 
-                <SizeSelector
-                    productId={product.product_id}
-                    productName={product.name}
-                    productPrice={product.price}
-                />
-
                 <div className={styles.description_container}>
                     <p>Description: {product.description}</p>
+                    <div className={styles.sizes}>
+                        <h4>Inventory: </h4>
+                        {sizes}
+                    </div>
                 </div>
+
+                <SizeSelector
+                    product={product}
+                />
             </div>
 
             <ReviewSection product_id={product_id} />
