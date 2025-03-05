@@ -32,8 +32,8 @@ model Review {
     comment      String  
     createdAt    DateTime @default(now())
     //
-    customer     Customer @relation(fields: [customer_ssn], references: [ssn], onDelete: NoAction)
-    product      Product  @relation(fields: [product_id], references: [product_id])
+    customer     Customer @relation(fields: [customer_ssn], references: [ssn], onDelete: NoAction, onUpdate: Cascade)
+    product      Product  @relation(fields: [product_id], references: [product_id], onDelete: Cascade, onUpdate: Cascade)
 }
 
 model CustomerSession {
