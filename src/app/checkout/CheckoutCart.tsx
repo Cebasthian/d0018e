@@ -4,6 +4,7 @@ import { http } from "@/lib/client/httpRequester";
 import { useCustomer } from "@/lib/client/useCustomer";
 import { CustomerFromSessionType } from "@/lib/server/session/session_routes";
 import Image from "next/image";
+import Link from "next/link";
 import { useMemo, useState } from "react";
 import styles from "./checkout.module.css";
 
@@ -27,7 +28,19 @@ export default function CheckoutCart({
     }, [customer.basket_items]);
 
     const items = useMemo(() => {
-        return customer.basket_items.map((e) => {
+        if(customer.basket_items.length === 0) {
+            return(
+                <div className={styles['empty-basket']}>
+                    <p>
+                        Your basket is empty. Add some products before placing an order. 
+                        Visit the <Link href="/">Home Page</Link> for all our products.
+                    </p>
+                    
+                </div>
+            )
+        }
+
+        const basket = customer.basket_items.map((e) => {
 
             async function remove() {
                 setDisabled(true)
@@ -47,7 +60,7 @@ export default function CheckoutCart({
                     />
                     <div className={styles["cart-basket-text"]}>
                         <span>{e.product.name}</span>
-                        <span>{e.size}</span>
+                        <span>Size: {e.size}</span>
                     </div>
                     <div className={styles["cart-basket-price"]}>
                         <b>{e.product.price} SEK</b>
@@ -58,17 +71,23 @@ export default function CheckoutCart({
                 </div>
             );
         });
-    }, [customer.basket_items, disabled, setDisabled, refresh]);
+
+        return(
+            <>
+            <div className={styles["cart-basket"]}>{basket}</div>
+            <div className={styles["cart-total"]}>
+                <span>Total</span>
+                <b>{totalPrice} SEK</b>
+            </div>
+            </>
+        )
+    }, [customer.basket_items, disabled, setDisabled, refresh, totalPrice]);
 
     return (
         <>
             <div className={styles.cart}>
-                <h2>Shopping Basket</h2>
-                <div className={styles["cart-basket"]}>{items}</div>
-                <div className={styles["cart-total"]}>
-                    <span>Total</span>
-                    <b>{totalPrice} SEK</b>
-                </div>
+            <h2>Shopping Basket</h2>
+                {items}
             </div>
         </>
     );

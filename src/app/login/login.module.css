@@ -8,6 +8,15 @@
     padding-top: 5%;
 }
 
+.home {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    vertical-align: middle;
+    text-align: center;
+    margin: 10px 0;
+}
+
 .loginForm h1 {
     font-weight: lighter;
 }
