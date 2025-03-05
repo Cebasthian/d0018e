@@ -32,6 +32,11 @@ export async function GetCustomerSessionByToken(session_token: string) {
                             product: {
                                 include: {
                                     images: true,
+                                    stock: {
+                                        omit: {
+                                            product_id: true
+                                        }
+                                    }
                                 }
                             }
                         }

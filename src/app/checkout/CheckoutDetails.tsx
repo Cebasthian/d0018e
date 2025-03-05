@@ -3,6 +3,7 @@ import { http } from "@/lib/client/httpRequester";
 import { useCustomer } from "@/lib/client/useCustomer";
 import { CustomerFromSessionType } from "@/lib/server/session/session_routes";
 import { delay } from "@/lib/util/lib";
+import { HttpErrorMessage } from "@/types";
 import { useCallback, useMemo, useState } from "react";
 import styles from "./checkout.module.css";
 
@@ -20,6 +21,8 @@ export default function CheckoutDetails({customer: c}: {customer:CustomerFromSes
 
     const placeOrder = useCallback(async () => {
         if(loading || success) return;
+
+        setError("")
 
         if(customer.basket_items.length === 0) {
             setError("Can't place an order on zero items.")
@@ -45,9 +48,12 @@ export default function CheckoutDetails({customer: c}: {customer:CustomerFromSes
                 await delay(300)
                 setSuccess(true)
                 await refresh()
+            } else {
+                const error = await res.json() as HttpErrorMessage;
+                setError(error.message)
             }
         } catch {
-            setError("Invalid fields.")
+            setError("Network error.")
         }
         
         

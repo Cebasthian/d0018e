@@ -49,8 +49,12 @@ export default function CheckoutCart({
                 setDisabled(false)
             }
 
+            const outOfStock = (() => {
+                return (e.product.stock?.[e.size as keyof typeof e.product.stock] || 0) <= 0
+            })()
+
             return (
-                <div key={e.id} className={styles["cart-basket-item"]}>
+                <div key={e.id} className={[styles["cart-basket-item"], outOfStock ? styles['cart-item-no-stock'] : ""].join(" ")}>
                     <Image
                         src={e.product.images[0].url}
                         width={500}
@@ -60,7 +64,8 @@ export default function CheckoutCart({
                     />
                     <div className={styles["cart-basket-text"]}>
                         <span>{e.product.name}</span>
-                        <span>Size: {e.size}</span>
+                        <span>Size: {e.size} {outOfStock ? <b>Out of stock</b> : ""}</span>
+                        <Link href={`/product/${e.product_id}`}>Link</Link>
                     </div>
                     <div className={styles["cart-basket-price"]}>
                         <b>{e.product.price} SEK</b>
