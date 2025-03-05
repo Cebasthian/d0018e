@@ -30,13 +30,14 @@ export default function CreateProductForm() {
             return; // Early return so we don't send a bad price.
         }
 
-        // let compressedFile = "data:image/png;base64, " + image;
-        let compressedFile = "default"
+        let compressedFile = "default";
 
         if (image) {
             const compressed = await CompressAndEncode<string>(image);
 
-            compressedFile = compressed.split("application/octet-stream").join("image/jpg");
+            compressedFile = compressed
+                .split("application/octet-stream")
+                .join("image/jpg");
         }
 
         const res = await http.post("/api/admin/product", {
@@ -44,7 +45,7 @@ export default function CreateProductForm() {
             description,
             price,
             tag,
-            images: [compressedFile]
+            images: [compressedFile],
         });
 
         if (res.status === 200) {
@@ -59,7 +60,7 @@ export default function CreateProductForm() {
 
     return (
         <>
-            <form className={styles.form} onSubmit={onSubmit}>
+            <form className={styles.formContainer} onSubmit={onSubmit}>
                 <FormInput name="name">Product Name</FormInput>
                 <FormInput name="description">Product Description</FormInput>
                 <FormInput name="price" number>

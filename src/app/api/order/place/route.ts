@@ -7,29 +7,33 @@ import { placeOrder } from "@/service/order";
 // GET all orders for order management page.
 export const GET = async (req: Request) => {
     try {
-      const orders = await prisma.order.findMany({
-        orderBy: { processed: 'asc' }, // unprocessed orders come first
-        include: {
-          customer: true,
-          order_items: true,
-        },
-      });
-      return SuccessResponse(orders);
+        const orders = await prisma.order.findMany({
+            orderBy: { processed: "asc" }, // unprocessed orders come first
+            include: {
+                customer: true,
+                order_items: {
+                    include: {
+                        Product: true,
+                    },
+                },
+            },
+        });
+        return SuccessResponse(orders);
     } catch (error) {
-      console.error("Error retrieving orders", error);
-      return BadRequest("Error retrieving orders");
+        console.error("Error retrieving orders", error);
+        return BadRequest("Error retrieving orders");
     }
-  };
+};
 
 /**
  * Place a new order on the items in your basket.
  * Uses session management.
  */
 export const POST = withCustomerSession(async (req, customer) => {
-    if(customer.basket_items.length <= 0) {
+    if (customer.basket_items.length <= 0) {
         return BadRequest("Cannot place an order with zero items.");
     }
-    
+
     const body = await req.json();
 
     const { address, city, postalCode } = body;
@@ -38,12 +42,11 @@ export const POST = withCustomerSession(async (req, customer) => {
         return BadRequest("Invalid shipping details.");
     }
 
-    const order = await placeOrder({address, city, postalCode}, customer)
+    const order = await placeOrder({ address, city, postalCode }, customer);
 
     await clearBasket(customer.ssn);
 
     return SuccessResponse(order);
-    
 });
 
 function isString(str: unknown) {
