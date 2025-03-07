@@ -1,6 +1,7 @@
 "use client";
 
 import { useCustomer } from "@/lib/client/useCustomer";
+import { HttpErrorMessage } from "@/types";
 import React, { useEffect, useState } from "react";
 import styles from "./ReviewForm.module.css";
 
@@ -70,8 +71,7 @@ export default function ReviewForm({
                 }),
             });
 
-            const data = await res.json();
-
+            
             if (res.ok) {
                 setSuccess("Review submitted successfully!");
                 setRating(null);
@@ -79,7 +79,9 @@ export default function ReviewForm({
                 setHasReviewed(true);
                 onReviewSubmitted?.();
             } else {
-                setError(data.error || "Submission failed");
+                const data = await res.json() as HttpErrorMessage;
+                
+                setError(data.message || "Submission failed");
             }
         } catch {
             setError("Network error. Please try again.");

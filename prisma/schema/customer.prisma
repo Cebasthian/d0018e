@@ -11,6 +11,7 @@ model Customer {
     reviews      Review[]
     sessions     CustomerSession[]
     orders       Order[]
+    replies      ReviewReply[]
 }
 
 model BasketItem {
@@ -25,15 +26,30 @@ model BasketItem {
 }
 
 model Review {
-    review_id    String   @id @default(uuid())
+    review_id    String        @id @default(uuid())
     customer_ssn String
     product_id   String
-    rating       Int      // 1-5 sjärnor. TODO: average på product page 
-    comment      String  
-    createdAt    DateTime @default(now())
+    rating       Int // 1-5 sjärnor. TODO: average på product page 
+    comment      String
+    createdAt    DateTime      @default(now())
     //
-    customer     Customer @relation(fields: [customer_ssn], references: [ssn], onDelete: NoAction, onUpdate: Cascade)
-    product      Product  @relation(fields: [product_id], references: [product_id], onDelete: Cascade, onUpdate: Cascade)
+    customer     Customer      @relation(fields: [customer_ssn], references: [ssn], onDelete: Cascade, onUpdate: Cascade)
+    product      Product       @relation(fields: [product_id], references: [product_id], onDelete: Cascade, onUpdate: Cascade)
+    replies      ReviewReply[]
+}
+
+model ReviewReply {
+    reply_id      String        @id @default(uuid())
+    review_id     String
+    customer_ssn  String
+    comment       String
+    parent_id     String?
+    created_at    DateTime      @default(now())
+    //
+    customer      Customer      @relation(fields: [customer_ssn], references: [ssn], onDelete: Cascade, onUpdate: Cascade)
+    review        Review        @relation(fields: [review_id], references: [review_id], onDelete: Cascade, onUpdate: Cascade)
+    parent_reply  ReviewReply?  @relation("ReplyReply", fields: [parent_id], references: [reply_id], onDelete: Cascade, onUpdate: Cascade)
+    child_replies ReviewReply[] @relation("ReplyReply")
 }
 
 model CustomerSession {

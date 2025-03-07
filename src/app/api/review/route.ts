@@ -1,7 +1,30 @@
-import { BadRequest } from "@/lib/server/httpStatus";
+import { BadRequest, HttpError } from "@/lib/server/httpStatus";
 import { prisma } from "@/lib/server/prisma";
 import { withCustomerSession } from "@/lib/server/session/session_routes";
 import { NextResponse } from "next/server";
+
+export interface Review {
+    product_id: string;
+    rating: number;
+    comment: string;
+    customer: {
+        name: string;
+    };
+    createdAt: string;
+    replies: Reply[];
+    review_id: string;
+}
+
+type Reply = {
+    comment: string;
+    customer: {
+        name: string;
+    };
+    parent_id: string | null;
+    review_id: string;
+    reply_id: string;
+    child_replies: Reply[];
+};
 
 /**
  * Gets all reviews from a product id
@@ -21,20 +44,85 @@ export async function GET(request: Request) {
                         name: true,
                     },
                 },
+                replies: {
+                    include: {
+                        customer: {
+                            select: {
+                                name: true,
+                            },
+                        },
+                    },
+                    omit: {
+                        customer_ssn: true,
+                    },
+                },
+            },
+            omit: {
+                customer_ssn: true,
             },
             orderBy: {
                 createdAt: "desc",
             },
         });
 
-        const formattedReviews = reviews.map((review) => ({
-            product_id: review.product_id,
-            rating: review.rating,
-            comment: review.comment,
-            customer_ssn: review.customer_ssn,
-            customer_name: review.customer.name,
-            createdAt: review.createdAt.toISOString(),
-        }));
+        function buildReplyTreeRecursive(
+            replies: Reply[],
+            parentId: string | null = null
+        ): Reply[] {
+            return replies
+                .filter((reply) => reply.parent_id === parentId)
+                .map((reply) => {
+                    return {
+                        ...reply,
+                        child_replies: buildReplyTreeRecursive(
+                            replies,
+                            reply.parent_id
+                        ),
+                    } as Reply;
+                }
+            );
+        }
+
+        function buildReplyTree(replies: Reply[]) {
+            const roots: Reply[] = []
+            const replyMap = new Map<string, Reply>()
+
+            replies.forEach((reply) => {
+                reply.child_replies= [];
+                replyMap.set(reply.reply_id, reply)
+            })
+
+            replies.forEach((reply) => {
+                if(reply.parent_id !== null) {
+                    const parent = replyMap.get(reply.parent_id)
+                    if(parent) {
+                        parent.child_replies.push(reply)
+                    }
+                } else {
+                    roots.push(reply)
+                }
+            })
+
+            return roots
+
+        }
+
+        const formattedReviews = reviews.map((review) => {
+            return {
+                ...review,
+                replies: buildReplyTree(review.replies.map(e => ({...e, child_replies: []})))
+                // replies: buildReplyTreeRecursive(review.replies.map(e => ({...e, child_replies: []})))
+            }
+        })
+
+        // const formattedReviews = reviews.map((review) => ({
+        //     product_id: review.product_id,
+        //     rating: review.rating,
+        //     comment: review.comment,
+        //     customer_ssn: review.customer_ssn,
+        //     customer_name: review.customer.name,
+        //     createdAt: review.createdAt.toISOString(),
+        // }));
 
         return NextResponse.json(formattedReviews, { status: 200 });
     } catch (error) {
@@ -66,6 +154,24 @@ export const POST = withCustomerSession(async (req, customer) => {
         return BadRequest("Invalid comment");
     }
 
+    if (
+        !(
+            customer.orders.find((e) => {
+                return (
+                    e.processed &&
+                    e.order_items.find((e) => e.product_id === product_id) !==
+                        undefined
+                );
+            }) !== undefined
+        )
+    ) {
+        return HttpError(
+            400,
+            "You haven't bought this item.",
+            "HAVENT_BOUGHT_ITEM_ERROR"
+        )();
+    }
+
     const existingReview = await prisma.review.findFirst({
         where: {
             product_id: product_id.trim(),
@@ -74,9 +180,12 @@ export const POST = withCustomerSession(async (req, customer) => {
     });
 
     if (existingReview) {
-        return BadRequest("You've already reviewed this product");
+        return HttpError(
+            400,
+            "You have already reviewed this product.",
+            "DUPLICATE_REVIEW_ERROR"
+        )();
     }
-
 
     const review = await prisma.review.create({
         data: {
