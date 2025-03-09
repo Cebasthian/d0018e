@@ -62,8 +62,6 @@ export default function ReviewSection({ product_id }: ReviewSectionProps) {
         fetchReviews();
     }, [fetchReviews]);
 
-
-
     return (
         <div className={styles.reviewSection}>
             <ReviewForm
@@ -78,7 +76,13 @@ export default function ReviewSection({ product_id }: ReviewSectionProps) {
                 ) : error ? (
                     <p className={styles.error}>{error}</p>
                 ) : reviewList.length > 0 ? (
-                    reviewList.map((review) => (<ReviewComponent review={review} key={review.review_id} />))
+                    reviewList.map((review) => (
+                        <ReviewComponent
+                            review={review}
+                            key={review.review_id}
+                            onReplySubmitted={fetchReviews}
+                        />
+                    ))
                 ) : (
                     <p>No reviews yet. Be the first!</p>
                 )}
@@ -87,83 +91,113 @@ export default function ReviewSection({ product_id }: ReviewSectionProps) {
     );
 }
 
-
 type ReviewProps = {
-    review: Review
-}
+    review: Review;
+    onReplySubmitted: () => void;
+};
 
-function ReviewComponent({
-    review
-}: ReviewProps) {
+function ReviewComponent({ review, onReplySubmitted }: ReviewProps) {
+    const [reply, setReply] = useState("");
 
-    const [reply, setReply] = useState("")
-
-    const addReply = useCallback(async () =>{
-
-        
+    const addReply = useCallback(async () => {
         const res = await http.post("/api/review/reply", {
             comment: reply,
-            review_id: review.review_id
-        })
+            review_id: review.review_id,
+        });
 
-        if(res.ok) {
-            alert("success")
+        if (res.ok) {
+            alert("success");
         }
+    }, [reply, review.review_id]);
 
-    }, [reply, review.review_id])
-
-
-    return(
+    return (
         <>
-        <div
-            className={styles.reviewItem}
-        >
-            <p>
-                <strong>Rating:</strong> {review.rating}/5
-            </p>
-            <p>
-                <strong>Comment:</strong> {review.comment}
-            </p>
-            <p>
-                <strong>By:</strong> {review.customer.name}
-            </p>
-            <p>
-                <strong>Date:</strong>{" "}
-                {new Date(
-                    review.createdAt
-                ).toLocaleDateString()}
-            </p>
-            <div>
-
+            <div className={styles.reviewItem}>
+                <p>
+                    <strong>Rating:</strong> {review.rating}/5
+                </p>
+                <p>
+                    <strong>Comment:</strong> {review.comment}
+                </p>
+                <p>
+                    <strong>By:</strong> {review.customer.name}
+                </p>
+                <p>
+                    <strong>Date:</strong>{" "}
+                    {new Date(review.createdAt).toLocaleDateString()}
+                </p>
                 <div>
-                    {review.replies.map(e => <ReplyComponent reply={e} key={e.reply_id}/>)}
+                    <div>
+                        {review.replies.map((e) => (
+                            <ReplyComponent
+                                key={e.reply_id}
+                                reply={e}
+                                reviewId={review.review_id}
+                                onReplySubmitted={onReplySubmitted}
+                            />
+                        ))}
+                    </div>
+
+                    <label>
+                        <span>Reply</span>
+                        <input
+                            onChange={(e) => setReply(e.target.value)}
+                            value={reply}
+                        />
+                    </label>
+
+                    <button onClick={addReply}>
+                        publish <Icon>reply</Icon>
+                    </button>
                 </div>
-
-            <label>
-                <span>Reply</span>
-                <input onChange={e => setReply(e.target.value)} value={reply}/>
-            </label>
-
-            <button onClick={addReply}>publish <Icon>reply</Icon></button>
             </div>
-        </div>
         </>
-    )
+    );
 }
 
 type ReplyProps = {
-    reply: Reply
-}
+    reply: Reply;
+    reviewId: string;
+    onReplySubmitted: () => void;
+};
 
-function ReplyComponent({
-    reply
-}: ReplyProps) {
-    return(
-        <div className={styles.reply}>
-            <span>{reply.comment}</span>
+function ReplyComponent({ reply, reviewId, onReplySubmitted }: ReplyProps) {
+    const [replyText, setReplyText] = useState("");
+
+    const addReply = async () => {
+        const res = await http.post("/api/review/reply", {
+            comment: replyText,
+            review_id: reviewId,
+            parent_id: reply.reply_id,
+        });
+
+        if (res.ok) {
+            onReplySubmitted();
+            setReplyText("");
+        }
+    };
+    return (
+        <div className={styles.reply} style={{ marginLeft: "20px" }}>
+            <span>
+                {reply.comment} - {reply.customer.name}
+            </span>
             <div>
-                {reply.child_replies.map(e => <ReplyComponent reply={e} key={e.reply_id}/>)}
+                <input
+                    value={replyText}
+                    onChange={(e) => setReplyText(e.target.value)}
+                    placeholder="Write a reply"
+                />
+                <button onClick={addReply}>Reply</button>
             </div>
+
+            {reply.child_replies.map((child) => (
+                <ReplyComponent
+                    key={child.reply_id}
+                    reply={child}
+                    reviewId={reviewId}
+                    onReplySubmitted={onReplySubmitted}
+                />
+            ))}
         </div>
-    )
+    );
 }

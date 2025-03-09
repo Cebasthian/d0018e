@@ -115,3 +115,9 @@
 .reply {
     margin-left: 10px;
 }
+
+.reply {
+    margin-top: 8px;
+    padding: 8px;
+    border-left: 1px solid #ccc;
+}
